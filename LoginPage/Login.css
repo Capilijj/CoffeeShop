@@ -25,13 +25,14 @@ body {
     padding: 10px 30px;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Changed to space-between for logo/nav alignment */
+    justify-content: flex-start; /* Keeps logo and nav-links to the left initially */
     position: fixed;
     top: 0;
     left: 0;
-    height: 90px;
+    height: 100px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
     z-index: 10;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
 
 .header-logo {
@@ -49,14 +50,16 @@ body {
     cursor: pointer;
     padding: 5px;
     z-index: 11; /* Ensure it's above other elements if needed */
+    margin-left: auto; /* Pushes the toggle to the far right when visible on mobile */
 }
 
 /* Nav Links - Default (for large screens - top bar) */
 .nav-links {
-    display: flex; /* Displays links horizontally like a top bar */
+    display: flex; /* Displays links horizontally */
     gap: 30px; /* Space between links */
-    margin-left: 30px; /* Adjusted margin */
-    align-items: center; /* Vertically align all nav items, including the new button */
+    align-items: center; /* Vertically align all nav items */
+    margin-left: 40px; /* Add some space between logo and nav links */
+    flex-grow: 1; /* Allow nav-links to grow and push the login button */
 }
 
 .nav-links a {
@@ -80,9 +83,10 @@ body {
     padding: 8px 18px; /* Padding inside the button */
     border-radius: 25px; /* Makes it pill/rounded shape */
     text-decoration: none; /* No underline by default */
-    margin-left: 20px; /* Space from previous nav link */
+    margin-left: auto; /* KEY CHANGE: Pushes this button to the far right */
     transition: all 0.3s ease; /* Smooth transition for hover effects */
     font-weight: 600; /* Slightly bolder text */
+    flex-shrink: 0; /* Prevent the button from shrinking */
 }
 
 .nav-login-btn:hover {
@@ -407,9 +411,7 @@ input[type="password"]::password-reveal {
 @media (max-width: 900px) { /* Adjust this breakpoint as needed */
 
     .header {
-        flex-wrap: wrap; /* Allows nav links to wrap below logo/toggle when shown */
-        justify-content: space-between; /* Keeps logo left, toggle right */
-        align-items: center;
+        justify-content: space-between; /* Logo on left, toggle/login on right */
         height: auto; /* Allows header to expand when menu is open */
         padding: 15px 20px;
     }
@@ -422,6 +424,8 @@ input[type="password"]::password-reveal {
     /* Show the toggle button on small screens */
     .nav-toggle {
         display: block; /* Shows the hamburger icon on small screens */
+        order: 2; /* Ensures the toggle button is after the login button if they are side-by-side */
+        margin-left: 20px; /* Space between login button and toggle */
     }
 
     /* Hide nav links by default on small screens */
@@ -430,44 +434,52 @@ input[type="password"]::password-reveal {
         flex-direction: column; /* Stack links vertically */
         width: 100%; /* Take full width below logo/toggle */
         margin-top: 15px; /* Space between the logo/toggle line and the menu */
-        margin-left: 0; /* Remove left margin */
+        margin-left: 0; /* Remove left margin from desktop */
         text-align: center; /* Center the links */
         background-color: #5c4033; /* Optional: background for the expanded menu */
         padding-bottom: 10px; /* Padding at the bottom of the menu */
+        order: 3; /* Ensures nav-links appear below logo and toggle */
+        flex-grow: 0; /* Reset flex-grow for mobile */
+        align-items: center; /* Center items horizontally when flex-direction is column */
     }
 
-    .nav-links a {
+    .nav-links a:not(.nav-login-btn) { /* Apply to all nav links EXCEPT the login button */
         padding: 10px 0; /* Add vertical padding for better tap targets */
         display: block; /* Make links take full width for padding */
         font-size: 16px;
     }
 
-    /* Override nav-login-btn styling for mobile to fit vertically */
+    /* Keep the nav-login-btn always on the right */
     .nav-login-btn {
-        color: #5c4033; /* Darker text color, for better contrast on a solid background */
-        background-color: #ffcc99; /* Solid background for visibility */
-        border: none; /* Remove border if you want a solid button */
-        padding: 10px 20px; /* Adjust padding for mobile button (slightly more vertical) */
-        border-radius: 25px; /* Keep it rounded */
-        text-decoration: none; /* No underline */
-        margin-top: 15px; /* Add more space from previous link in vertical menu */
-        margin-left: 0; /* Remove left margin from desktop */
+        color: #5c4033;
+        background-color: #ffcc99;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        text-decoration: none;
+        margin-top: 0; /* Reset margin from desktop */
+        margin-left: auto; /* Pushes to the far right within the header */
         font-weight: 600;
         transition: all 0.3s ease;
-        
-        /* Make it fit its content and center it in the flex column */
-        width: fit-content; /* This is key: make it only as wide as its content */
-        display: block; /* Ensure it takes its own line if it's not already */
-        align-self: center; /* Centers the button horizontally within the flex column (.nav-links) */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+        order: 1; /* Ensures the login button appears first among the right-aligned items */
+        align-self: center; /* Align it vertically in the header */
+        width: auto; /* Let content define width */
+        display: block; /* Ensure it respects margins */
     }
 
+    /* Override for .nav-login-btn when .nav-links is active (mobile menu open) */
+    .nav-links.active .nav-login-btn {
+        margin-left: 0; /* Remove auto-margin to center it in the column */
+        align-self: center; /* Ensure it's centered in the column */
+        width: fit-content; /* Make it only as wide as its content */
+    }
+    
     .nav-login-btn:hover {
-        background-color: #ffd0a8; /* Slightly lighter on hover */
+        background-color: #ffd0a8;
         color: #5c4033;
-        transform: translateY(-1px); /* Less dramatic lift */
+        transform: translateY(-1px);
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-        text-decoration: none; /* Ensure no underline on hover */
+        text-decoration: none;
     }
 
     /* This class is added by JavaScript when the toggle button is clicked */

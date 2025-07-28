@@ -1,48 +1,55 @@
 /* General Body and Font */
 body {
-    font-family: 'Roboto', Arial, sans-serif; /* Using Roboto as a close match */
+    font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #fff; /* White background as seen */
+    background-color: #fff;
     color: #000;
     display: flex;
-    flex-direction: column; /* For header and content */
-    align-items: center; /* Center content horizontally */
-    min-height: 100vh; /* Full viewport height */
+    flex-direction: column;
+    align-items: center; /* This centers the main login container */
+    min-height: 100vh;
 }
 
-/* Header */
+/* Header - Position at top-left */
 .header {
     width: 100%;
-    padding: 20px 0; /* Padding around logo */
-    text-align: center; /* Center the logo */
+    /* Removed text-align: center; */
     box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow below header */
-    background-color: #fff;
+    background-color: #ff9500d2;
     position: fixed; /* Keep header at top */
     top: 0;
     left: 0;
     z-index: 1000; /* Ensure it's above other content */
+    display: flex; /* Use flexbox to align content within the header */
+    align-items: center; /* Vertically center items in the header */
+    padding: 10px 20px; /* Adjust padding as needed for spacing from edges */
+    box-sizing: border-box; /* Include padding in the width calculation */
 }
 
-.starbucks-logo-link {
-    display: inline-block; /* Allows vertical alignment of image */
+.logo-link { /* The <a> tag around the image */
+    display: flex; /* Helps in aligning the image within the link */
+    align-items: center;
+    margin-right: auto; /* Pushes other potential header elements to the right */
 }
 
-.starbucks-logo {
-    height: 50px; /* Adjust size as seen in image */
-    width: auto;
+/* Logo Image - Make it smaller */
+.coffecraft-logo { /* Make sure this class matches the one in your HTML <img> tag */
+    height: 70px; /* Adjust this value to make it smaller or larger */
+    width: auto; /* Maintain aspect ratio */
+    /* No need for display: block; or margin: auto; if using flexbox on parent */
 }
 
-/* Main Login Container */
+/* Main Login Container - Adjust margin-top to account for fixed header */
 .login-container {
-    max-width: 400px; /* Adjust max width as per image */
-    width: 90%; /* Responsive width */
-    margin-top: 120px; /* Space for fixed header */
+    max-width: 400px;
+    width: 90%;
+    margin-top: 100px; /* This needs to be greater than the header's height + top padding */
     padding: 40px 30px;
-    background-color: #fff;
-    /* No explicit shadow or border on the container itself in the image */
+    background-color: #e8e8e8;
     text-align: left;
 }
+
 
 .login-container h1 {
     font-size: 28px;

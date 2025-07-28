@@ -1,0 +1,207 @@
+/* General Body and Font */
+body {
+    font-family: 'Roboto', Arial, sans-serif; /* Using Roboto as a close match */
+    margin: 0;
+    padding: 0;
+    background-color: #fff; /* White background as seen */
+    color: #000;
+    display: flex;
+    flex-direction: column; /* For header and content */
+    align-items: center; /* Center content horizontally */
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Header */
+.header {
+    width: 100%;
+    padding: 20px 0; /* Padding around logo */
+    text-align: center; /* Center the logo */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow below header */
+    background-color: #fff;
+    position: fixed; /* Keep header at top */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.starbucks-logo-link {
+    display: inline-block; /* Allows vertical alignment of image */
+}
+
+.starbucks-logo {
+    height: 50px; /* Adjust size as seen in image */
+    width: auto;
+}
+
+/* Main Login Container */
+.login-container {
+    max-width: 400px; /* Adjust max width as per image */
+    width: 90%; /* Responsive width */
+    margin-top: 120px; /* Space for fixed header */
+    padding: 40px 30px;
+    background-color: #fff;
+    /* No explicit shadow or border on the container itself in the image */
+    text-align: left;
+}
+
+.login-container h1 {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #1e3932; /* Starbucks dark green for headings */
+}
+
+.required-field-note {
+    font-size: 14px;
+    color: #6a6a6a;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative; /* For password toggle icon */
+}
+
+.sr-only { /* Screen reader only text for labels */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; /* Include padding in width */
+    color: #000;
+    font-weight: 300; /* Lighter font weight */
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: #888;
+    opacity: 1; /* For Firefox */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #00704a; /* Starbucks green on focus */
+    box-shadow: 0 0 0 1px #00704a;
+}
+
+/* Password Toggle Icon */
+.password-group {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6a6a6a;
+    display: flex; /* For SVG alignment */
+    align-items: center;
+    justify-content: center;
+}
+
+.password-toggle svg {
+    width: 20px; /* Adjust size of eye icon */
+    height: 20px;
+}
+
+
+/* Checkbox Group */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 14px;
+    color: #333;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    /* Custom checkbox styling can be more complex, but this is basic */
+    transform: scale(1.2); /* Make checkbox slightly larger */
+}
+
+.details-link {
+    color: #00704a; /* Starbucks green for links */
+    text-decoration: none;
+}
+
+.details-link:hover {
+    text-decoration: underline;
+}
+
+/* Forgot Links */
+.forgot-links {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.forgot-link {
+    color: #00704a;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+/* Sign In Button */
+.sign-in-button {
+    background-color: #00704a; /* Starbucks green */
+    color: white;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 50px; /* Pill shape */
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    align-self: flex-end; /* Align to the right */
+    min-width: 100px; /* Ensure button has a minimum width */
+    transition: background-color 0.2s ease;
+}
+
+.sign-in-button:hover {
+    background-color: #005f3c; /* Slightly darker green on hover */
+}
+
+/* Responsive adjustments (optional, but good practice) */
+@media (max-width: 600px) {
+    .login-container {
+        padding: 30px 20px;
+        margin-top: 100px;
+    }
+
+    .login-container h1 {
+        font-size: 24px;
+    }
+
+    .sign-in-button {
+        width: 100%; /* Full width button on small screens */
+        align-self: center;
+    }
+}

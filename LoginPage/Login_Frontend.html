@@ -1,70 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoffeeCraft</title>
-    <link rel="stylesheet" href="Login.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login - CoffeeCraft</title>
+    <link rel="stylesheet" href="Login.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
     <header class="header">
-        <a href="#" class="logo-link"> <img src="../Image/logo.png" alt="coffeecraft" class="coffecraft-logo"> </a>
+        <img src="../image/Logo.png" alt="CoffeeCraft Logo" class="header-logo" />
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav class="nav-links" id="navbarNav">
+            <a href="#">Home</a>
+            <a href="#">Menu</a>
+            <a href="#">About Us</a>
+            <a href="#">Services</a>
+            <a href="#">Contact Us</a>
+            <a href="#" class="nav-login-btn">Log In</a>
+        </nav>
     </header>
-    
-    <div class="login-container">
-        <h1>Sign in or create an account</h1>
 
-        <p class="required-field-note">* indicates required field</p>
-
-        <form class="login-form">
-            <div class="form-group">
-                <label for="username" class="sr-only">Username or email address</label>
-                <input type="text" id="username" name="username" placeholder="* Username or email address" required>
+    <main>
+        <div class="split-wrapper">
+            <div class="left-panel">
+                <h1>Welcome to CoffeeCraft</h1>
+                <p>Start your day right with the perfect blend of flavor and comfort. Experience the rich aroma and exquisite taste of our finest brews.</p>
             </div>
 
-            <div class="form-group password-group">
-                <label for="password" class="sr-only">Password</label>
-                <input type="password" id="password" name="password" placeholder="* Password" required>
-                <span class="password-toggle" onclick="togglePasswordVisibility()">
-                    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path>
-                    </svg>
-                </span>
+            <div class="right-panel">
+                <div class="container">
+                    <div class="tab-header" id="mainTabHeader">
+                        <button class="tab active" data-tab="login">Login</button>
+                        <button class="tab" data-tab="signup">Create Account</button>
+                    </div>
+
+                    <div class="login-box form-content active" id="login">
+                        <h2>Welcome to CoffeeCraft!</h2>
+                        <form>
+                            <div class="input-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" placeholder="Enter your email" required autocomplete="email" />
+                            </div>
+
+                            <div class="input-group">
+                                <label for="password">Password</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password" />
+                                    <i class="toggle-password fa fa-eye-slash"></i>
+                                </div>
+                            </div>
+
+                            <div class="forgot-wrapper">
+                                <a href="#" class="forgot-password-link" id="switchToForgot">Forgot Password?</a>
+                            </div>
+
+                            <button type="submit" class="login-btn">Login</button>
+
+                            <div class="create-account-bottom">
+                                <span>Don't have an account? <a href="#" id="switchToSignup">Create Account</a></span>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="login-box form-content" id="signup">
+                        <h2>Create Account</h2>
+                        <form>
+                            <div class="input-group">
+                                <label for="new-email">Email</label>
+                                <input type="email" id="new-email" placeholder="Enter your email" required autocomplete="email" />
+                            </div>
+
+                            <div class="input-group">
+                                <label for="new-password">Password</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="new-password" placeholder="Create a password" required autocomplete="new-password" />
+                                    <i class="toggle-password fa fa-eye-slash"></i>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="confirm-password">Confirm Password</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="confirm-password" placeholder="Confirm your password" required autocomplete="new-password" />
+                                    <i class="toggle-password fa fa-eye-slash"></i>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="login-btn">Sign Up</button>
+
+                            <div class="create-account-bottom">
+                                <span>Already have an account? <a href="#" id="switchToLogin">Login</a></span>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="login-box form-content" id="forgotPassword">
+                        <h2>Forgot Your Password?</h2>
+                        <p class="forgot-password-intro">Enter your email address below and we'll send you a link to reset your password.</p>
+                        <form>
+                            <div class="input-group">
+                                <label for="forgot-email">Email</label>
+                                <input type="email" id="forgot-email" placeholder="Enter your email" required autocomplete="email" />
+                            </div>
+                            <button type="submit" class="login-btn">Send Reset Link</button>
+                            <div class="back-to-login">
+                                <a href="#" id="backToLoginFromForgot">Back to Login</a>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
             </div>
+        </div>
+    </main>
 
-            <div class="checkbox-group">
-                <input type="checkbox" id="keepSignedIn" name="keepSignedIn" checked>
-                <label for="keepSignedIn">Keep me signed in. <a href="#" class="details-link">Details</a></label>
-            </div>
+    <footer class="footer">
+        <p>&copy; 2025 CoffeeCraft. All rights reserved.</p>
+    </footer>
 
-            <div class="forgot-links">
-                <a href="#" class="forgot-link">Forgot your username?</a>
-                <a href="#" class="forgot-link">Forgot your password?</a>
-            </div>
-
-            <button type="submit" class="sign-in-button">Sign in</button>
-        </form>
-    </div>
-
-    <script>
-        function togglePasswordVisibility() {
-            const passwordField = document.getElementById('password');
-            const passwordToggle = document.querySelector('.password-toggle svg');
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                // You might change the SVG icon here to an "eye-slash" icon
-                // For simplicity, we just toggle type
-            } else {
-                passwordField.type = 'password';
-                // Change back to "eye" icon
-            }
-        }
-
-        // Optional: Prevent default form submission for demonstration
-        document.querySelector('.login-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('This is a demo. Sign in functionality is not implemented.');
-        });
-    </script>
+    <script src="LoginScript.js" defer></script>
 </body>
 </html>

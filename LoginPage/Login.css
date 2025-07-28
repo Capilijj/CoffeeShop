@@ -1,214 +1,554 @@
-/* General Body and Font */
-body {
-    font-family: 'Roboto', Arial, sans-serif;
+/* Global Reset */
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #fff;
-    color: #000;
+}
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Open+Sans:wght@400;500;600;700&display=swap');
+
+/* Body Styling */
+body {
+    font-family: 'Open Sans', sans-serif; /* Changed to Open Sans */
+    background-color: #f8f5f1; /* Softer, warmer background */
     display: flex;
     flex-direction: column;
-    align-items: center; /* This centers the main login container */
+    align-items: center;
     min-height: 100vh;
 }
 
-/* Header - Position at top-left */
+/* Header styles for ALL screen sizes */
 .header {
     width: 100%;
-    /* Removed text-align: center; */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow below header */
-    background-color: #ff9500d2;
-    position: fixed; /* Keep header at top */
+    background-color: #5c4033; /* Darker, richer coffee brown */
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Changed to space-between for logo/nav alignment */
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000; /* Ensure it's above other content */
-    display: flex; /* Use flexbox to align content within the header */
-    align-items: center; /* Vertically center items in the header */
-    padding: 10px 20px; /* Adjust padding as needed for spacing from edges */
-    box-sizing: border-box; /* Include padding in the width calculation */
+    height: 90px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+    z-index: 10;
 }
 
-.logo-link { /* The <a> tag around the image */
-    display: flex; /* Helps in aligning the image within the link */
-    align-items: center;
-    margin-right: auto; /* Pushes other potential header elements to the right */
+.header-logo {
+    width: 90px; /* Slightly adjusted size */
+    height: auto;
 }
 
-/* Logo Image - Make it smaller */
-.coffecraft-logo { /* Make sure this class matches the one in your HTML <img> tag */
-    height: 70px; /* Adjust this value to make it smaller or larger */
-    width: auto; /* Maintain aspect ratio */
-    /* No need for display: block; or margin: auto; if using flexbox on parent */
+/* Nav Toggle Button (Hamburger) - Hidden by default for large screens */
+.nav-toggle {
+    display: none; /* Hidden by default on large screens */
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px; /* Larger icon */
+    cursor: pointer;
+    padding: 5px;
+    z-index: 11; /* Ensure it's above other elements if needed */
 }
 
-/* Main Login Container - Adjust margin-top to account for fixed header */
-.login-container {
-    max-width: 400px;
-    width: 90%;
-    margin-top: 100px; /* This needs to be greater than the header's height + top padding */
-    padding: 40px 30px;
-    background-color: #e8e8e8;
-    text-align: left;
+/* Nav Links - Default (for large screens - top bar) */
+.nav-links {
+    display: flex; /* Displays links horizontally like a top bar */
+    gap: 30px; /* Space between links */
+    margin-left: 30px; /* Adjusted margin */
+    align-items: center; /* Vertically align all nav items, including the new button */
 }
 
-
-.login-container h1 {
-    font-size: 28px;
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 17px; /* Slightly larger font */
     font-weight: 500;
-    margin-bottom: 25px;
-    text-align: center;
-    color: #1e3932; /* Starbucks dark green for headings */
+    transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-.required-field-note {
-    font-size: 14px;
-    color: #6a6a6a;
-    margin-bottom: 20px;
+.nav-links a:hover {
+    color: #ffdda1; /* Brighter highlight on hover */
+    text-decoration: underline;
 }
 
-/* Form Styling */
-.login-form {
+/* NEW: Styling for the Login button in the Nav Bar */
+.nav-login-btn {
+    /* Override default nav-links a styles for button-like appearance */
+    color: #ffcc99; /* Lighter color for text inside border */
+    border: 2px solid #ffcc99; /* Rounded border with a contrasting color */
+    padding: 8px 18px; /* Padding inside the button */
+    border-radius: 25px; /* Makes it pill/rounded shape */
+    text-decoration: none; /* No underline by default */
+    margin-left: 20px; /* Space from previous nav link */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    font-weight: 600; /* Slightly bolder text */
+}
+
+.nav-login-btn:hover {
+    background-color: #ffcc99; /* Background color on hover */
+    color: #5c4033; /* Darker text color on hover */
+    text-decoration: none; /* Ensure no underline on hover */
+    transform: translateY(-2px); /* Subtle lift effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow on hover */
+}
+
+/* Main Content Area */
+main {
+    flex: 1; /* Allows main content to grow and push footer down */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 120px; /* Adjusted: 90px (header height) + 30px (desired gap) */
+    padding-bottom: 20px; /* Add some space above footer */
+}
+
+/* Split Layout Wrapper */
+.split-wrapper {
+    display: flex;
+    width: 90%; /* Responsive width */
+    max-width: 1200px; /* Max width for larger screens */
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Stronger, more refined shadow */
+}
+
+/* Left Panel */
+.left-panel {
+    flex: 1;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('../image/Coffeebg.jpg'); /* Added subtle overlay */
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 40px;
     display: flex;
     flex-direction: column;
-}
-
-.form-group {
-    margin-bottom: 20px;
-    position: relative; /* For password toggle icon */
-}
-
-.sr-only { /* Screen reader only text for labels */
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    border: 0;
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    box-sizing: border-box; /* Include padding in width */
-    color: #000;
-    font-weight: 300; /* Lighter font weight */
-}
-
-input[type="text"]::placeholder,
-input[type="password"]::placeholder {
-    color: #888;
-    opacity: 1; /* For Firefox */
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus {
-    outline: none;
-    border-color: #00704a; /* Starbucks green on focus */
-    box-shadow: 0 0 0 1px #00704a;
-}
-
-/* Password Toggle Icon */
-.password-group {
+    justify-content: center;
+    text-align: center;
     position: relative;
 }
 
-.password-toggle {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #6a6a6a;
-    display: flex; /* For SVG alignment */
-    align-items: center;
-    justify-content: center;
+.left-panel h1 {
+    font-family: 'Lora', serif; /* Changed to Lora */
+    font-size: 40px; /* Slightly larger */
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Added text shadow */
 }
 
-.password-toggle svg {
-    width: 20px; /* Adjust size of eye icon */
-    height: 20px;
+.left-panel p {
+    font-size: 19px; /* Slightly larger */
+    line-height: 1.7;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Added text shadow */
 }
 
-
-/* Checkbox Group */
-.checkbox-group {
+/* Right Panel (Form Section) */
+.right-panel {
+    flex: 1;
+    background-color: #fefefe; /* Very light background for contrast */
+    padding: 40px 30px; /* Adjusted padding */
     display: flex;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 25px;
-    font-size: 14px;
+}
+
+/* Override container max-width */
+.right-panel .container {
+    max-width: 400px; /* Constrain container width within right-panel */
+    width: 100%; /* Ensure it takes full width up to max */
+    padding: 0; /* Remove horizontal padding as right-panel has it */
+}
+
+/* Tab Header */
+.tab-header {
+    display: flex;
+    margin-bottom: 0;
+    background-color: #ececec; /* Lighter tab background */
+    border-radius: 8px 8px 0 0; /* Softer corners */
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow for tab header */
+}
+
+.tab {
+    flex: 1;
+    padding: 15px 10px; /* More vertical padding */
+    border: none;
+    background-color: #ececec;
+    font-weight: 600; /* Slightly bolder */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 16px;
+    color: #555; /* Muted color for inactive tab */
+}
+
+.tab.active {
+    background-color: #ffffff;
+    color: #333; /* Darker color for active tab */
+    border-bottom: 3px solid #00704A; /* Thicker, green underline */
+    border-radius: 8px 8px 0 0;
+}
+
+.tab:hover:not(.active) {
+    background-color: #e0e0e0;
     color: #333;
 }
 
-.checkbox-group input[type="checkbox"] {
-    margin-right: 10px;
-    /* Custom checkbox styling can be more complex, but this is basic */
-    transform: scale(1.2); /* Make checkbox slightly larger */
+/* Login Box / Form Content */
+.login-box {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Refined shadow */
+    text-align: center;
+    width: 100%;
 }
 
-.details-link {
-    color: #00704a; /* Starbucks green for links */
-    text-decoration: none;
+/* Title */
+h2 {
+    font-family: 'Lora', serif; /* Changed to Lora */
+    margin-bottom: 25px; /* More space below title */
+    color: #333;
+    font-size: 28px; /* Slightly larger */
+    font-weight: 700;
 }
 
-.details-link:hover {
-    text-decoration: underline;
+/* Input Groups */
+.input-group {
+    text-align: left;
+    margin-bottom: 20px; /* More space between input groups */
 }
 
-/* Forgot Links */
-.forgot-links {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 30px;
+.input-group label {
+    display: block;
+    margin-bottom: 8px; /* More space for label */
+    color: #444; /* Slightly darker label color */
+    font-weight: 600; /* Bolder label */
+    font-size: 15px;
 }
 
-.forgot-link {
-    color: #00704a;
-    text-decoration: none;
-    font-size: 14px;
-    margin-bottom: 10px;
+.input-group input {
+    width: 100%;
+    padding: 12px; /* More padding for better touch target */
+    padding-right: 40px;
+    border: 1px solid #ddd; /* Lighter border */
+    border-radius: 8px; /* Softer border radius */
+    font-size: 15px; /* Slightly larger font */
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
-.forgot-link:hover {
-    text-decoration: underline;
+.input-group input:focus {
+    border-color: #00704A; /* Green border on focus */
+    box-shadow: 0 0 0 3px rgba(0, 112, 74, 0.2); /* Subtle glow on focus */
+    outline: none;
 }
 
-/* Sign In Button */
-.sign-in-button {
-    background-color: #00704a; /* Starbucks green */
-    color: white;
-    padding: 14px 25px;
-    border: none;
-    border-radius: 50px; /* Pill shape */
-    font-size: 16px;
-    font-weight: 600;
+/* Password Field Wrapper */
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px; /* Adjusted position */
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
-    align-self: flex-end; /* Align to the right */
-    min-width: 100px; /* Ensure button has a minimum width */
-    transition: background-color 0.2s ease;
+    color: #888;
+    font-size: 17px;
+    transition: color 0.3s ease;
 }
 
-.sign-in-button:hover {
-    background-color: #005f3c; /* Slightly darker green on hover */
+.toggle-password:hover {
+    color: #555;
 }
 
-/* Responsive adjustments (optional, but good practice) */
-@media (max-width: 600px) {
-    .login-container {
-        padding: 30px 20px;
-        margin-top: 100px;
+/* Forgot Password Link (inside login form) - Right Aligned */
+.forgot-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -10px; /* Pull it slightly up closer to password field */
+    margin-bottom: 20px; /* More space before button */
+}
+
+/* Specific styling for the actual link */
+.forgot-password-link { /* Changed from .forgot-password to match HTML */
+    font-size: 14px;
+    color: #00704A; /* Changed to main brand color */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.forgot-password-link:hover { /* Changed from .forgot-password to match HTML */
+    color: #005f3c; /* Darker green on hover */
+    text-decoration: underline;
+}
+
+/* Login & Signup Buttons */
+.login-btn {
+    display: block;
+    width: 100%;
+    padding: 12px 0; /* More padding */
+    background-color: #00704A; /* Main brand green */
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px; /* Softer border radius */
+    cursor: pointer;
+    font-size: 17px; /* Slightly larger font */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 112, 74, 0.2); /* Subtle shadow for button */
+}
+
+.login-btn:hover {
+    background-color: #005f3c; /* Darker green on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 6px 15px rgba(0, 112, 74, 0.3);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 112, 74, 0.2);
+}
+
+/* Hide inactive form */
+.form-content {
+    display: none;
+}
+
+.form-content.active {
+    display: block;
+}
+
+/* Create Account Bottom (Switch Link) */
+.create-account-bottom {
+    margin-top: 25px; /* More space above */
+    text-align: center;
+    font-size: 15px;
+    color: #666;
+}
+
+.create-account-bottom a {
+    color: #00704A; /* Match main brand color */
+    text-decoration: none;
+    font-weight: 600; /* Bolder */
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.create-account-bottom a:hover {
+    color: #005f3c;
+    text-decoration: underline;
+}
+
+/* Footer Styles */
+.footer {
+    text-align: center;
+    padding: 20px 20px; /* More padding */
+    background-color: #5c4033; /* Darker coffee brown */
+    color: #f8f5f1; /* Lighter text color */
+    font-size: 14px;
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+
+/* Disable Edge & Chrome native password reveal */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+input[type="password"]::password-reveal {
+    display: none;
+}
+
+/* NEW: Intro text for Forgot Password form */
+.forgot-password-intro {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 25px; /* Space before email input */
+    line-height: 1.5;
+}
+
+/* Styling for the "Back to Login" link within the form container */
+.back-to-login {
+    margin-top: 25px; /* Space after button */
+    font-size: 15px;
+    text-align: center;
+}
+
+.back-to-login a {
+    color: #00704A; /* Match main brand color */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.back-to-login a:hover {
+    color: #005f3c;
+    text-decoration: underline;
+}
+
+
+/* ========================================================== */
+/* RESPONSIVE STYLES FOR SMALLER SCREENS (Mobile/Tablet)      */
+/* ========================================================== */
+@media (max-width: 900px) { /* Adjust this breakpoint as needed */
+
+    .header {
+        flex-wrap: wrap; /* Allows nav links to wrap below logo/toggle when shown */
+        justify-content: space-between; /* Keeps logo left, toggle right */
+        align-items: center;
+        height: auto; /* Allows header to expand when menu is open */
+        padding: 15px 20px;
     }
 
-    .login-container h1 {
+    .header-logo {
+        width: 80px;
+        margin-bottom: 0;
+    }
+
+    /* Show the toggle button on small screens */
+    .nav-toggle {
+        display: block; /* Shows the hamburger icon on small screens */
+    }
+
+    /* Hide nav links by default on small screens */
+    .nav-links {
+        display: none; /* Hides the links by default on small screens */
+        flex-direction: column; /* Stack links vertically */
+        width: 100%; /* Take full width below logo/toggle */
+        margin-top: 15px; /* Space between the logo/toggle line and the menu */
+        margin-left: 0; /* Remove left margin */
+        text-align: center; /* Center the links */
+        background-color: #5c4033; /* Optional: background for the expanded menu */
+        padding-bottom: 10px; /* Padding at the bottom of the menu */
+    }
+
+    .nav-links a {
+        padding: 10px 0; /* Add vertical padding for better tap targets */
+        display: block; /* Make links take full width for padding */
+        font-size: 16px;
+    }
+
+    /* Override nav-login-btn styling for mobile to fit vertically */
+    .nav-login-btn {
+        color: #5c4033; /* Darker text color, for better contrast on a solid background */
+        background-color: #ffcc99; /* Solid background for visibility */
+        border: none; /* Remove border if you want a solid button */
+        padding: 10px 20px; /* Adjust padding for mobile button (slightly more vertical) */
+        border-radius: 25px; /* Keep it rounded */
+        text-decoration: none; /* No underline */
+        margin-top: 15px; /* Add more space from previous link in vertical menu */
+        margin-left: 0; /* Remove left margin from desktop */
+        font-weight: 600;
+        transition: all 0.3s ease;
+        
+        /* Make it fit its content and center it in the flex column */
+        width: fit-content; /* This is key: make it only as wide as its content */
+        display: block; /* Ensure it takes its own line if it's not already */
+        align-self: center; /* Centers the button horizontally within the flex column (.nav-links) */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    }
+
+    .nav-login-btn:hover {
+        background-color: #ffd0a8; /* Slightly lighter on hover */
+        color: #5c4033;
+        transform: translateY(-1px); /* Less dramatic lift */
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        text-decoration: none; /* Ensure no underline on hover */
+    }
+
+    /* This class is added by JavaScript when the toggle button is clicked */
+    .nav-links.active {
+        display: flex; /* Shows the navigation links when toggle is active */
+    }
+
+    /* Adjust main content padding to clear the header when it's just logo/toggle */
+    main {
+        padding-top: 100px; /* Ensure content clears header's height (approx 80-90px) */
+        padding-bottom: 15px;
+    }
+
+    .split-wrapper {
+        flex-direction: column;
+        width: 95%; /* More width on smaller screens */
+        border-radius: 8px;
+    }
+
+    .left-panel {
+        padding: 30px 20px;
+        height: 250px; /* Fixed height for image section on mobile */
+        max-height: 40vh; /* Max height based on viewport height */
+    }
+
+    .left-panel h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .left-panel p {
+        font-size: 16px;
+    }
+
+    .right-panel {
+        padding: 30px 20px;
+    }
+
+    h2 {
         font-size: 24px;
     }
 
-    .sign-in-button {
-        width: 100%; /* Full width button on small screens */
-        align-self: center;
+    .login-box {
+        padding: 25px 30px;
+    }
+
+    .tab {
+        font-size: 15px;
+        padding: 12px 8px;
+    }
+
+    /* Hide the tab header when in forgot password view */
+    .tab-header.hidden {
+        display: none;
+    }
+
+    /* Adjust Forgot Password intro text on mobile */
+    .forgot-password-intro {
+        font-size: 15px;
+    }
+
+}
+
+@media (max-width: 500px) {
+    .login-box {
+        padding: 20px 25px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    .input-group input {
+        font-size: 14px;
+    }
+
+    .login-btn {
+        font-size: 16px;
+    }
+
+    .left-panel {
+        height: 200px; /* Even smaller height for very small screens */
     }
 }

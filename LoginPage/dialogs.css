@@ -1,0 +1,255 @@
+/* ========================================================== */
+/* VALIDATION DIALOG STYLES (CENTERED OVERLAY)              */
+/* ========================================================== */
+
+/* Dialog Container */
+.dialog-container {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place relative to the viewport */
+    z-index: 1000; /* Sit on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+
+    /* These properties will center the dialog content within the container */
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+}
+
+.dialog-container.show {
+    display: flex; /* Show the dialog when active */
+}
+
+/* Dialog Content */
+.dialog-content {
+    background-color: #fefefe;
+    margin: auto; /* Center the dialog */
+    padding: 30px; /* Adjusted padding */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 90%; /* Responsive width */
+    max-width: 450px; /* Max width for larger screens */
+    position: relative; /* Keep relative for close button positioning */
+    text-align: center; /* Ensure text and inline/inline-block children are centered */
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box; /* Include padding in width */
+
+    /* Optional: Add a subtle animation for when it appears */
+    transform: scale(0.95);
+    opacity: 0;
+    animation: dialogAppear 0.3s ease-out forwards;
+}
+
+/* Define the animation */
+@keyframes dialogAppear {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Close Button */
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 15px; /* Adjusted from 10px */
+    right: 20px; /* Adjusted from 15px */
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Message Paragraph */
+#dialogMessage {
+    margin-bottom: 25px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* ========================================================== */
+/* OK Button for General Message Dialog (UPDATED)             */
+/* ========================================================== */
+.dialog-ok-button {
+    background-color: #00704A; /* Green button */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
+
+    /* --- IMPORTANT FIXES FOR CENTERING --- */
+    display: block; /* Ensure it behaves as a block element */
+    margin-left: auto; /* Center horizontally when display: block */
+    margin-right: auto; /* Center horizontally when display: block */
+    width: fit-content; /* Allow the button to size based on content */
+    max-width: 80%; /* Prevent it from becoming too wide on small screens */
+}
+
+.dialog-ok-button:hover {
+    background-color: #005f3c;
+    transform: translateY(-1px);
+}
+
+
+/* ========================================================== */
+/* OTP Specific Styles within the Dialog (Updated)            */
+/* ========================================================== */
+
+#otpDialogContent {
+    /* This content is dynamically shown/hidden by JS */
+    padding: 0; /* Already has padding from dialog-content */
+}
+
+#otpDialogContent h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+#otpInstruction {
+    margin-bottom: 25px;
+    color: #555;
+    line-height: 1.5;
+}
+
+#otpEmailDisplay {
+    font-weight: bold;
+    color: #2a7e2a; /* A distinct color for the email */
+}
+
+.otp-input-group-boxes {
+    display: flex;
+    justify-content: center; /* This centers the boxes horizontally */
+    gap: 10px; /* Space between the input boxes */
+    margin-bottom: 25px;
+}
+
+.otp-box {
+    width: 45px; /* Adjust size as needed */
+    height: 55px; /* Make it taller for better tap target on mobile */
+    font-size: 28px;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Hide number input arrows for Chrome, Safari, Edge, Opera */
+.otp-box::-webkit-outer-spin-button,
+.otp-box::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.otp-box:focus {
+    border-color: #5cb85c; /* Green focus border */
+    box-shadow: 0 0 0 3px rgba(92, 184, 92, 0.3);
+}
+
+.otp-box.otp-success {
+    border-color: #28a745; /* Green for success */
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
+}
+
+.otp-box.otp-error {
+    border-color: #dc3545; /* Red for error */
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.3);
+}
+
+.timer {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+}
+.timer.expired {
+    color: #dc3545; /* Red when expired */
+    font-weight: bold;
+}
+
+/* Updated to center buttons */
+.otp-actions {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center items horizontally */
+    gap: 15px; /* Space between buttons */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    margin-top: 20px; /* Space above buttons */
+}
+
+.otp-actions button {
+    min-width: 120px; /* Ensure buttons have a decent size */
+    /* Remove width: 100% to allow centering by flexbox if it was there previously */
+}
+
+.resend-link {
+    background-color: transparent; /* Changed to transparent for a link-like button */
+    color: #007bff; /* Blue link color */
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 0.95em;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.resend-link:hover {
+    color: #0056b3;
+}
+
+.resend-link:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+/* Message box for OTP (inside the modal) */
+.message-box {
+    margin-bottom: 15px;
+    padding: 10px; /* Reduced padding slightly for better fit */
+    border-radius: 5px;
+    font-size: 0.9em;
+    min-height: 20px; /* Ensure it has some height even when empty */
+    text-align: center; /* Center message text */
+}
+
+.message-box p {
+    margin: 0;
+}
+
+.message-box .success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.message-box .error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.message-box .info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+}

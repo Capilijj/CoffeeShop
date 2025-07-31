@@ -1,0 +1,10 @@
+git add.
+# Ignore all files in the node_modules directory
+node_modules/                                                           
+# Ignore all log files
+*.log
+# Ignore all environment variable files
+# Ignore all build directories
+build/
+# Ignore all test coverage directories
+coverage/   

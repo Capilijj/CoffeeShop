@@ -2,7 +2,7 @@
 session_start();
 include('database_connection.php'); // Siguraduhin na tama ang path na ito
 
-$otp_lifetime = 300; // 5 minuto (300 segundo)
+$otp_lifetime = 120; // 5 minuto (300 segundo)
 
 // Simulan ang mga mensahe ng session kung hindi pa nakatakda
 if (!isset($_SESSION['otp_verification_message'])) $_SESSION['otp_verification_message'] = '';
@@ -20,14 +20,14 @@ $response = [
 // I-validate ang email session
 $user_email = $_SESSION['otp_email_for_verification'] ?? null;
 if (!$user_email) {
-    $response['message'] = "No email found for OTP verification. Please start over.";
+    
     if ($is_ajax_request) {
         echo json_encode($response);
         exit();
     } else {
         $_SESSION['otp_verification_message'] = $response['message'];
         $_SESSION['otp_verification_status'] = $response['status'];
-        header("Location: Login.php");
+        header("Location: ../index.php");
         exit();
     }
 }
@@ -41,7 +41,7 @@ if (!isset($_SESSION['otp']) || !isset($_SESSION['otp_created_at'])) {
     } else {
         $_SESSION['otp_verification_message'] = $response['message'];
         $_SESSION['otp_verification_status'] = $response['status'];
-        header("Location: Login.php");
+        header("Location: ../index.php");
         exit();
     }
 }
@@ -58,7 +58,7 @@ if ($time_elapsed > $otp_lifetime) {
     } else {
         $_SESSION['otp_verification_message'] = $response['message'];
         $_SESSION['otp_verification_status'] = $response['status'];
-        header("Location: Login.php");
+        header("Location: ../index.php");
         exit();
     }
 }
@@ -155,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['reset_password_email'] = $user_email; // I-store ang email para sa reset_password.php
             unset($_SESSION['is_password_reset_flow']); // I-clear ang flow flag
             unset($_SESSION['otp_email_for_verification']); // I-clear ang email pagkatapos ng matagumpay na verification
-            $response['redirect_url'] = "reset_password.php"; // I-redirect sa password reset page
+            $response['redirect_url'] = "LoginPage/reset_password.php"; // I-redirect sa password reset page
         } else {
             // Edge case: Tumugma ang OTP, ngunit hindi malinaw ang layunin ng session
             $response['message'] = "OTP verified, but session flow is unclear. Please try again.";
@@ -182,7 +182,7 @@ if ($is_ajax_request) {
     $_SESSION['otp_verification_status'] = $response['status'];
     // Para sa direktang access pagkatapos ng verification, ang redirect_url mula sa response ay gagamitin ng Login.js
     // Kung walang redirect_url sa response (hal., sa error), magre-redirect pa rin ito pabalik sa Login.php
-    header("Location: Login.php");
+    header("Location: ../index.php");
     exit();
 }
 

@@ -1,0 +1,10 @@
+/* Footer Styles */
+.footer {
+    text-align: center;
+    padding: 20px 20px; /* More padding */
+    background-color: #5c4033; /* Darker coffee brown */
+    color: #f8f5f1; /* Lighter text color */
+    font-size: 14px;
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}

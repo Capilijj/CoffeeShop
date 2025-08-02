@@ -118,7 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (dialogCloseButton) {
         dialogCloseButton.addEventListener('click', () => {
-            showOtpModal(false); // <--- FIXED THIS LINE
+            // Only close the dialog/modal, do not switch to login or any other tab
+            // If OTP modal is open, just close it
+            if (otpDialogContent && otpDialogContent.style.display === 'block') {
+                showOtpModal(false);
+            } else {
+                validationDialog.classList.remove('show');
+            }
             // Optionally clear message or redirect if it was a success message with redirect
             if (phpRedirectUrl && phpMessage.includes("success")) {
                 window.location.href = phpRedirectUrl;
@@ -148,8 +154,55 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Display messages from PHP if any (e.g., after login, signup errors)
+    // --- Smart error handling for tab/form persistence ---
     if (phpMessage) {
+        // Determine which form/tab to show based on the error context
+        let showTab = null;
+        let setEmail = null;
+        // Check for signup error (message and signup email present)
+        if (
+            phpMessage &&
+            document.getElementById('signup-email') &&
+            window.phpSignupEmail && window.phpSignupEmail.length > 0 &&
+            (
+                phpMessage.includes('registration') ||
+                phpMessage.includes('Invalid email') ||
+                phpMessage.includes('Gmail') ||
+                phpMessage.includes('Passwords do not match') ||
+                phpMessage.includes('Password must be at least') ||
+                phpMessage.includes('already registered') ||
+                phpMessage.includes('fill out the signup form')
+            )
+        ) {
+            showTab = 'signup';
+            setEmail = window.phpSignupEmail;
+        }
+        // Check for forgot password error
+        if (
+            phpMessage &&
+            document.getElementById('forgot-email') &&
+            window.phpForgotEmail && window.phpForgotEmail.length > 0 &&
+            (
+                phpMessage.includes('No account found') ||
+                phpMessage.includes('valid email') ||
+                phpMessage.includes('Please enter your email')
+            )
+        ) {
+            showTab = 'forgotPassword';
+            setEmail = window.phpForgotEmail;
+        }
+        // Show the correct tab if needed
+        if (showTab) {
+            showForm(showTab);
+            tabs.forEach(tab => tab.classList.remove('active'));
+            if (showTab === 'signup') {
+                document.querySelector('.tab[data-tab="signup"]').classList.add('active');
+                if (setEmail) document.getElementById('signup-email').value = setEmail;
+            }
+            if (showTab === 'forgotPassword') {
+                if (setEmail) document.getElementById('forgot-email').value = setEmail;
+            }
+        }
         showValidationDialog(phpMessage, phpRedirectUrl);
     }
 
@@ -164,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resendOtpButton = document.getElementById('resendOtpButton');
     const otpTimerDisplay = document.getElementById('otpTimer');
     let otpTimerInterval;
-    const OTP_LIFETIME = 300; // 5 minutes in seconds
+    const OTP_LIFETIME = 120; // 5 minutes in seconds
 
     // Function to show/hide OTP message within the modal
     function showOtpMessage(message, type) {
@@ -281,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('is_password_reset_flow', phpIsPasswordResetFlow ? 'true' : 'false');
 
 
-            const response = await fetch("verify_otp.php", {
+            const response = await fetch("LoginPage/verify_otp.php", {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -297,11 +350,126 @@ document.addEventListener('DOMContentLoaded', () => {
                 stopOtpTimer();
                 setTimeout(() => {
                     showOtpModal(false);
-                    if (data.redirect_url) {
+                    // If this is a password reset flow, show the reset password form as a tab/modal
+                    if (phpIsPasswordResetFlow || (data.redirect_url && data.redirect_url.includes('reset_password.php'))) {
+                        // Show a reset password form/modal/tab
+                        showResetPasswordTab();
+                    } else if (data.redirect_url) {
                         window.location.href = data.redirect_url;
                     }
                 }, 1500);
             }
+    // --- Show Reset Password Tab/Modal Logic ---
+    function showResetPasswordTab() {
+        // Hide all forms and tabs
+        allFormContents.forEach(formContent => formContent.classList.remove('active'));
+        if (mainTabHeader) mainTabHeader.style.display = 'none';
+
+        // Check if reset password form already exists
+        let resetForm = document.getElementById('resetPasswordTab');
+        if (!resetForm) {
+            // Create the reset password form dynamically
+            resetForm = document.createElement('div');
+            resetForm.className = 'login-box form-content active';
+            resetForm.id = 'resetPasswordTab';
+            resetForm.innerHTML = `
+                <h2>Reset Your Password</h2>
+                <form id="resetPasswordForm" autocomplete="off">
+                    <div class="input-group">
+                        <label for="new_password">New Password:</label>
+                        <input type="password" name="new_password" id="new_password" placeholder="Enter new password" required minlength="8">
+                    </div>
+                    <div class="input-group">
+                        <label for="confirm_password">Confirm New Password:</label>
+                        <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm new password" required minlength="8">
+                    </div>
+                    <button type="submit" class="login-btn">Reset Password</button>
+                    <div class="back-to-login" style="margin-top:10px;">
+                        <a href="#" id="backToLoginFromReset">Back to Login</a>
+                    </div>
+                    <div id="resetPasswordMessage" class="error-message" style="display:none;"></div>
+                </form>
+            `;
+            document.querySelector('.container').appendChild(resetForm);
+        } else {
+            resetForm.classList.add('active');
+        }
+
+        // Add event listener for reset password form
+        const resetPasswordForm = document.getElementById('resetPasswordForm');
+        const resetPasswordMessage = document.getElementById('resetPasswordMessage');
+        const backToLoginFromReset = document.getElementById('backToLoginFromReset');
+        if (resetPasswordForm) {
+            resetPasswordForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const newPass = document.getElementById('new_password').value;
+                const confirmPass = document.getElementById('confirm_password').value;
+                resetPasswordMessage.style.display = 'none';
+                resetPasswordMessage.textContent = '';
+                if (!newPass || !confirmPass) {
+                    resetPasswordMessage.textContent = 'Please fill in both password fields.';
+                    resetPasswordMessage.style.display = 'block';
+                    return;
+                }
+                if (newPass !== confirmPass) {
+                    resetPasswordMessage.textContent = 'Passwords do not match.';
+                    resetPasswordMessage.style.display = 'block';
+                    return;
+                }
+                if (newPass.length < 8) {
+                    resetPasswordMessage.textContent = 'Password must be at least 8 characters.';
+                    resetPasswordMessage.style.display = 'block';
+                    return;
+                }
+                // AJAX to reset_password.php
+                try {
+                    const formData = new FormData();
+                    formData.append('new_password', newPass);
+                    formData.append('confirm_password', confirmPass);
+                    const response = await fetch('LoginPage/reset_password.php', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+                    const data = await response.text();
+                    if (data.includes('success')) {
+                        resetPasswordMessage.textContent = 'Password reset successful! You can now log in.';
+                        resetPasswordMessage.style.display = 'block';
+                        setTimeout(() => {
+                            // Remove reset form and show login
+                            resetForm.remove();
+                            showForm('login');
+                            if (mainTabHeader) mainTabHeader.style.display = 'flex';
+                        }, 2000);
+                    } else {
+                        // Try to extract error message from response
+                        let msg = data;
+                        try {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(data, 'text/html');
+                            const err = doc.querySelector('.error-message');
+                            if (err) msg = err.textContent;
+                        } catch {}
+                        resetPasswordMessage.textContent = msg || 'Error updating password. Please try again.';
+                        resetPasswordMessage.style.display = 'block';
+                    }
+                } catch (error) {
+                    resetPasswordMessage.textContent = 'Error updating password. Please try again.';
+                    resetPasswordMessage.style.display = 'block';
+                }
+            });
+        }
+        if (backToLoginFromReset) {
+            backToLoginFromReset.addEventListener('click', function(e) {
+                e.preventDefault();
+                resetForm.remove();
+                showForm('login');
+                if (mainTabHeader) mainTabHeader.style.display = 'flex';
+            });
+        }
+    }
         } catch (error) {
             console.error('Error during OTP verification:', error);
             showOtpMessage("An error occurred during verification. Please try again.", "error");
@@ -325,7 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('is_password_reset_flow', phpIsPasswordResetFlow ? 'true' : 'false');
 
 
-            const response = await fetch("send_otp_email.php", {
+            const response = await fetch("LoginPage/send_otp_email.php", {
                 method: 'POST',
                 body: formData,
                 headers: {

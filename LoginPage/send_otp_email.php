@@ -44,7 +44,7 @@ if (!isset($_SESSION['otp_email_for_verification'])) {
 }
 
 $recipient_email = $_SESSION['otp_email_for_verification'];
-$otp_lifetime = 300; // 5 minuto
+$otp_lifetime = 120; // 2 minuto
 
 // Hawakan ang mga kasalukuyang mensahe mula sa mga nakaraang redirect (kung mayroon)
 if (isset($_SESSION['otp_verification_message'])) {
@@ -58,7 +58,8 @@ if (isset($_SESSION['otp_verification_message'])) {
 $generate_new_otp = true;
 if (isset($_SESSION['otp']) && isset($_SESSION['otp_created_at'])) {
     $time_elapsed = time() - $_SESSION['otp_created_at'];
-    if ($time_elapsed < $otp_lifetime) {
+    // Always generate new OTP if resend is requested
+    if ($time_elapsed < $otp_lifetime && !($is_resend_request)) {
         $generate_new_otp = false; // Valid pa rin ang OTP, huwag bumuo ng bago maliban kung tahasang hiniling (hal., resend button)
     }
 }
@@ -94,8 +95,8 @@ if ($generate_new_otp || $is_resend_request) {
         // Nilalaman
         $mail->isHTML(true); // Itakda ang format ng email sa HTML
         $mail->Subject = 'Your CoffeeCraft OTP Code';
-        $mail->Body    = "<h3>Your OTP Code for CoffeeCraft is: <strong>" . htmlspecialchars($otp) . "</strong></h3><p>This code is valid for 5 minutes.</p>";
-        $mail->AltBody = "Your OTP Code for CoffeeCraft is: " . htmlspecialchars($otp) . ". This code is valid for 5 minutes.";
+        $mail->Body    = "<h3>Your OTP Code for CoffeeCraft is: <strong>" . htmlspecialchars($otp) . "</strong></h3><p>This code is valid for 2 minutes.</p>";
+        $mail->AltBody = "Your OTP Code for CoffeeCraft is: " . htmlspecialchars($otp) . ". This code is valid for 2 minutes.";
 
         $mail->send();
 
@@ -103,7 +104,7 @@ if ($generate_new_otp || $is_resend_request) {
         $_SESSION['otp'] = $otp;
         $_SESSION['otp_created_at'] = time();
 
-        $message = "A 6-digit OTP has been sent to " . htmlspecialchars($recipient_email) . ".";
+        $message = "A 6-digit OTP has been sent to " . htmlspecialchars($recipient_email) . ". It is valid for 2 minutes.";
         $otp_status = "success";
 
     } catch (Exception $e) {
@@ -140,7 +141,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
     // Para sa direktang access (hal., paunang paglo-load ng pahina)
     $_SESSION['otp_verification_message'] = $message;
     $_SESSION['otp_verification_status'] = $otp_status;
-    header("Location: Login.php");
+    header("Location: ../index.php");
     exit();
-}
+}   
 ?>

@@ -1,67 +1,57 @@
 <?php
-session_start(); // Simulan ang session sa simula ng page
+session_start();
 
-// Check kung naka-login ang user
+// Check kung naka-login ang user.
 if (!isset($_SESSION['user_id'])) {
-    // Kung hindi naka-login, i-redirect sa login page
-    header("Location: Login.php");
+    // Kung hindi, i-redirect pabalik sa Login page.
+    header("Location: ../LoginPage/Login.php");
     exit();
 }
 
-$welcome_message = "";
-// Kunin ang email mula sa session kung available
+$welcome_message = "Welcome to your Dashboard!";
+// Kunin ang email sa session para sa personalized welcome message.
 if (isset($_SESSION['user_email'])) {
-    $welcome_message = "Welcome back!, " . htmlspecialchars($_SESSION['user_email']) . "!";
-    // Alisin ang email sa session para hindi na ulit lumabas ang welcome message sa susunod na refresh
+    $welcome_message = "Welcome back, " . htmlspecialchars($_SESSION['user_email']) . "!";
+    // Alisin ang email sa session para hindi na ulit lumabas ang welcome message sa susunod na refresh.
     unset($_SESSION['user_email']);
 }
-
-// Optionally, you can fetch more user details from the database using $_SESSION['user_id'] here
-// Example (assuming $conn is available or you include database_connection.php again):
-/*
-include_once 'database_connection.php';
-$user_id = $_SESSION['user_id'];
-$stmt = $conn->prepare("SELECT username FROM Users WHERE id = ?");
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$user_data = $result->fetch_assoc();
-$username = $user_data['username'] ?? 'User'; // Use $username in your welcome message if preferred
-$stmt->close();
-*/
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - CoffeeCraft</title>
-    <link rel="stylesheet" href="style.css"> <style>
+    <title>Dashboard</title>
+    
+    <link rel="stylesheet" href="../LoginPage/core.css">
+    <link rel="stylesheet" href="../LoginPage/dialogs.css">
+    
+    <style>
         body {
+            background-color: #f8f5f1;
             font-family: 'Open Sans', sans-serif;
-            background-color: #f4f4f4;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-            flex-direction: column;
+            justify-content: center;
         }
         .dashboard-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            width: 90%;
             max-width: 600px;
-            width: 100%;
         }
         .welcome-message {
-            font-size: 28px;
-            color: #00704A; /* Green accent */
+            font-size: 36px;
+            color: #333;
             margin-bottom: 20px;
             font-weight: bold;
         }
@@ -72,16 +62,16 @@ $stmt->close();
             line-height: 1.6;
         }
         .logout-btn {
-            background-color: #dc3545; /* Red for logout */
+            background-color: #dc3545;
             color: white;
             padding: 12px 25px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 18px;
-            text-decoration: none; /* Remove underline for link */
+            text-decoration: none;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            display: inline-block; /* Allows padding and centering */
+            display: inline-block;
         }
         .logout-btn:hover {
             background-color: #c82333;
@@ -91,16 +81,10 @@ $stmt->close();
 </head>
 <body>
     <div class="dashboard-container">
-        <?php if (!empty($welcome_message)): ?>
-            <h1 class="welcome-message"><?php echo $welcome_message; ?></h1>
-        <?php else: ?>
-            <h1 class="welcome-message">Welcome to your Dashboard!</h1>
-        <?php endif; ?>
-
-        <p class="dashboard-info">You are now logged in. This is your personalized dashboard where you can manage your account.</p>
-        <p class="dashboard-info">Explore our features or proceed with your activities.</p>
-
-        <a href="/LoginPage/Login.php" class="logout-btn">Logout</a>
+        <h1 class="welcome-message"><?php echo $welcome_message; ?></h1>
+        <p class="dashboard-info">You are now logged in. This is your personal dashboard where you can manage your account and view your activities.</p>
+        
+        <a href="/index.php" class="logout-btn">Logout</a>
     </div>
 </body>
 </html>

@@ -42,6 +42,11 @@
             <div class="login-box form-content" id="signup">
                 <h2>Create Account</h2>
                 <form action="../index.php" method="POST" id="signupForm">
+
+                    <div class="input-group">
+                        <label for="signup-name">Name</label>
+                        <input type="text" id="signup-name" name="signup_name" placeholder="Enter your name" required autocomplete="name" />
+                    </div>
                     <div class="input-group">
                         <label for="signup-email">Email</label>
                         <input type="email" id="signup-email" name="signup_email" placeholder="Enter your email" required autocomplete="email" />

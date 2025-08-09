@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
         $email_input = trim($_POST["email"]);
         $password_input = $_POST["password"];
 
-        $stmt = $conn->prepare("SELECT id, email, password FROM Users WHERE email = ?");
+        $stmt = $conn->prepare("SELECT id, email, password, profile_img FROM Users WHERE email = ?");
         if ($stmt === false) {
             $message_to_display = "Database error: " . $conn->error;
         } else {
@@ -45,6 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['user_email'] = $user['email'];
                     $_SESSION['loggedin'] = true;
+                    // Set profile image session for header
+                    if (!empty($user['profile_img'])) {
+                        $_SESSION['user_profile_img'] = $user['profile_img'];
+                    } else {
+                        unset($_SESSION['user_profile_img']);
+                    }
                     $message_to_display = "Login successful! Welcome, " . htmlspecialchars($user['email']) . ".";
                     $redirect_after_dialog = "/Dashboard/dashboard.php";
                 } else {
@@ -62,12 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
 
 // --- PHP Signup Form Submission Handling ---
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_submit'])) {
-    if (isset($_POST["signup_email"]) && isset($_POST["signup_password"]) && isset($_POST["confirm_password"])) {
+    if (isset($_POST["signup_email"]) && isset($_POST["signup_password"]) && isset($_POST["confirm_password"]) && isset($_POST["signup_name"])) {
         $email_input = trim($_POST["signup_email"]);
         $password_input = $_POST["signup_password"];
         $confirm_password_input = $_POST["confirm_password"];
+        $name_input = trim($_POST["signup_name"]);
 
-        if (empty($email_input) || empty($password_input) || empty($confirm_password_input)) {
+        if (empty($email_input) || empty($password_input) || empty($confirm_password_input) || empty($name_input)) {
             $message_to_display = "Please fill in all fields for registration.";
         } else if (!filter_var($email_input, FILTER_VALIDATE_EMAIL)) {
             $message_to_display = "Invalid email format.";
@@ -90,6 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_submit'])) {
                     $message_to_display = "Email already registered. Try logging in.";
                 } else {
                     $_SESSION['pending_signup_password'] = $password_input;
+                    $_SESSION['pending_signup_name'] = $name_input;
                     $_SESSION['otp_email_for_verification'] = $email_input;
                     $_SESSION['open_otp_modal_on_load'] = true;
                     $_SESSION['is_password_reset_flow'] = false;
@@ -183,5 +191,6 @@ if (isset($conn) && $conn instanceof mysqli) {
     ?>
 
     <script src="LoginPage/Login.js" defer></script>
+    <script src="../responsive.js"></script>
 </body>
 </html>

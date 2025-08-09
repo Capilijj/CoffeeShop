@@ -1,78 +1,342 @@
-/* Header styles for ALL screen sizes */
-.header {
-    width: 100%;
-    background-color: #5c4033; /* Darker, richer coffee brown */
-    padding: 10px 30px;
+/* Profile dropdown styles */
+.nav-profile-btn-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.profile-dropdown {
+  position: absolute;
+  top: 54px;
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+  min-width: 180px;
+  padding: 18px 0 18px 0;
+  z-index: 1002;
+  display: none;
+}
+/* Enhanced logout button */
+.logout-btn.enhanced {
+  width: calc(100% - 24px);
+  margin: 0 12px;
+  background: linear-gradient(90deg, #A0522D 60%, #6F4E37 100%);
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 0 12px 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(160,82,45,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 0.5px;
+}
+.logout-btn.enhanced i {
+  margin-left: 6px;
+  font-size: 1.1em;
+}
+.logout-btn.enhanced:hover {
+  background: linear-gradient(90deg, #6F4E37 60%, #A0522D 100%);
+  color: #ffcc99;
+  box-shadow: 0 4px 16px rgba(160,82,45,0.18);
+}
+
+/* Profile label next to icon */
+.profile-label {
+  margin-left: 10px;
+  color: #4A2C2A;
+  font-size: 1.08rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+@media (max-width: 900px) {
+  .profile-dropdown {
+    top: 60px;
+    right: 0;
+    min-width: 120px;
+    padding: 10px 0;
+  }
+}
+/* Profile nav button (circle) */
+.nav-profile-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fff;
+  margin-left: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 2.5px solid #f0ff99;
+  transition: box-shadow 0.2s, border 0.2s;
+  overflow: visible;
+}
+.nav-profile-btn:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  border: 2.5px solid #6F4E37;
+}
+.profile-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+}
+.profile-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+@media (max-width: 900px) {
+  .donut-nav-menu .nav-profile-btn {
+    width: 54px;
+    height: 54px;
+    margin: 8px 0 0 0;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 2px solid #ffcc99;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Keeps logo and nav-links to the left initially */
+    justify-content: center;
+    padding: 0;
+  }
+  .donut-nav-menu .profile-circle {
+    width: 44px;
+    height: 44px;
+  }
+  .donut-nav-menu .profile-circle img {
+    width: 100%;
+    height: 100%;
+  }
+}
+/* --- DONUT NAV MENU FOR MOBILE --- */
+@media (max-width: 900px) {
+  .nav-links {
+    display: none !important;
+  }
+  .nav-toggle {
+    display: block !important;
+    position: absolute;
+    right: 30px;
+    top: 32px;
+    z-index: 20;
+  }
+  /*
+   * UPDATED: Mobile Menu Container
+   * Changed from a circular "donut" to a rectangular box.
+   * Adjusted dimensions, background, and spacing to fix text overlap.
+   */
+  .donut-nav-menu {
     position: fixed;
-    top: 0;
-    left: 0;
-    height: 100px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
-    z-index: 10;
-    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    top: 90px; /* Positioned below the hamburger toggle */
+    right: 30px;
+    width: 220px; /* Fixed width for better readability */
+    height: auto; /* Height will adjust to content */
+    background: #f8f4ef; /* Light coffee-themed background color */
+    border-radius: 14px; /* Rounded corners for a box shape */
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    border: 2.5px solid #ffcc99; /* Add visible border color for box */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.9) translateY(-20px);
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 1001;
+    padding: 20px; /* Uniform padding for better spacing */
+    gap: 10px; /* Added gap between items */
+  }
+  .donut-nav-menu.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1) translateY(0);
+  }
+  .donut-link, .donut-login-btn {
+    display: block;
+    color: #5c4033;
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 0; /* Removed margin to use gap for spacing */
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.8);
+    transition: background 0.2s, color 0.2s;
+    text-align: center;
+    width: 100%; /* Full width to fill the box */
+    box-sizing: border-box;
+  }
+  .donut-link:hover, .donut-login-btn:hover {
+    background: #ffcc99;
+    color: #6F4E37;
+  }
+  .donut-login-btn {
+    border: 2.5px solid #ffcc99;
+    color: #ffcc99;
+    background: #5c4033;
+    margin-top: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+    border-radius: 25px !important;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: visible;
+  }
+  .donut-login-btn:hover {
+    background: #ffcc99;
+    color: #5c4033;
+  }
+/* Responsive main content/dashboard */
+@media (max-width: 900px) {
+  .main-content {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: auto;
+    min-height: 60vh;
+    padding: 0 4vw;
+  }
+  .content-section {
+    max-width: 98vw;
+    width: 100%;
+    margin: 30px 0 0 0;
+    padding: 32px 10px;
+    border-radius: 14px;
+    align-items: flex-start;
+  }
+  .main-title {
+    font-size: 2.2rem;
+    text-align: left;
+  }
+  .subtitle {
+    font-size: 1rem;
+    text-align: left;
+  }
+  .button-container {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    align-items: flex-start;
+  }
+}
+  .header {
+    justify-content: flex-start;
+    padding: 10px 10px 10px 18px;
+  }
+  .header-logo {
+    width: 70px;
+    margin-right: 10px;
+  }
+}
+/* Header styles for ALL screen sizes */
+.header {
+  width: 100%;
+  background-color: #5c4033; /* Darker, richer coffee brown */
+  padding: 10px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Keeps logo and nav-links to the left initially */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+  z-index: 10;
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
 
 .header-logo {
-    width: 90px; /* Slightly adjusted size */
-    height: auto;
+  width: 90px; /* Slightly adjusted size */
+  height: auto;
 }
 
 /* Nav Toggle Button (Hamburger) - Hidden by default for large screens */
 .nav-toggle {
-    display: none; /* Hidden by default on large screens */
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 28px; /* Larger icon */
-    cursor: pointer;
-    padding: 5px;
-    z-index: 11; /* Ensure it's above other elements if needed */
-    margin-left: auto; /* Pushes the toggle to the far right when visible on mobile */
+  display: none; /* Hidden by default on large screens */
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 28px; /* Larger icon */
+  cursor: pointer;
+  padding: 5px;
+  z-index: 11; /* Ensure it's above other elements if needed */
+  margin-left: auto; /* Pushes the toggle to the far right when visible on mobile */
 }
 
 /* Nav Links - Default (for large screens - top bar) */
 .nav-links {
-    display: flex; /* Displays links horizontally */
-    gap: 30px; /* Space between links */
-    align-items: center; /* Vertically align all nav items */
-    margin-left: 40px; /* Add some space between logo and nav links */
-    flex-grow: 1; /* Allow nav-links to grow and push the login button */
+  display: flex; /* Displays links horizontally */
+  gap: 30px; /* Space between links */
+  align-items: center; /* Vertically align all nav items */
+  margin-left: 40px; /* Add some space between logo and nav links */
+  flex-grow: 1; /* Allow nav-links to grow and push the login button */
 }
 
 .nav-links a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 17px; /* Slightly larger font */
-    font-weight: 500;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
+  color: #fff;
+  text-decoration: none;
+  font-size: 17px; /* Slightly larger font */
+  font-weight: 500;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-.nav-links a:hover {
-    color: #ffdda1; /* Brighter highlight on hover */
-    text-decoration: underline;
+/* Nav link styles */
+.nav-links a {
+  border-bottom: 2.5px solid transparent;
+  padding-bottom: 4px;
+  transition: color 0.3s, text-decoration 0.3s, border 0.3s;
 }
+.nav-login-btn {
+  border-bottom: none !important;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  border-bottom: 2.5px solid #ffcc99;
+  background: none;
+}
+
 
 /* NEW: Styling for the Login button in the Nav Bar */
 .nav-login-btn {
-    /* Override default nav-links a styles for button-like appearance */
-    color: #ffcc99; /* Lighter color for text inside border */
-    border: 2px solid #ffcc99; /* Rounded border with a contrasting color */
-    padding: 8px 18px; /* Padding inside the button */
-    border-radius: 25px; /* Makes it pill/rounded shape */
-    text-decoration: none; /* No underline by default */
-    margin-left: auto; /* KEY CHANGE: Pushes this button to the far right */
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
-    font-weight: 600; /* Slightly bolder text */
-    flex-shrink: 0; /* Prevent the button from shrinking */
+  /* Override default nav-links a styles for button-like appearance */
+  color: #ffcc99; /* Lighter color for text inside border */
+  border: 2.5px solid #ffcc99; /* Always full border, never just bottom */
+  padding: 8px 18px;
+  border-radius: 25px !important;
+  text-decoration: none;
+  margin-left: auto;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  overflow: visible;
+  border-bottom: none !important;
 }
 
 .nav-login-btn:hover {
-    background-color: #ffcc99; /* Background color on hover */
-    color: #5c4033; /* Darker text color on hover */
-    text-decoration: none; /* Ensure no underline on hover */
-    transform: translateY(-2px); /* Subtle lift effect */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow on hover */
+  background-color: #ffcc99;
+  color: #5c4033;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2.5px solid #5c4033;
+  border-bottom: none !important;
 }

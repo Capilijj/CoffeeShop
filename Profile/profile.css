@@ -1,0 +1,123 @@
+.profile-img-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.profile-img-main {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid #ffcc99;
+  background: #f8f4ef;
+}
+.profile-label {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #A0522D;
+  margin-bottom: 14px;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+.coffee-logout-btn {
+  background: #A0522D !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 1.08rem;
+  margin-top: 0;
+  transition: background 0.2s, color 0.2s;
+}
+.coffee-logout-btn:hover {
+  background: #6F4E37 !important;
+  color: #ffcc99 !important;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.main-content {
+  flex: 1 0 auto;
+  margin-top: 120px;
+  min-height: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #fff;
+}
+.content-section {
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+  padding: 48px 32px 40px 32px;
+  min-height: 500px;
+}
+
+/* Profile page custom styles */
+.content-section {
+  max-width: 420px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+  padding: 36px 32px 32px 32px;
+}
+.content-section h1 {
+  text-align: center;
+  margin-bottom: 28px;
+  font-size: 2rem;
+  color: #5c4033;
+  font-family: 'Lora', serif;
+}
+
+.profile-name {
+  margin-bottom: 6px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #5c4033;
+  letter-spacing: 0.5px;
+  font-family: 'Lora', serif;
+}
+.profile-email {
+  margin-bottom: 22px;
+  font-size: 1.15rem;
+  color: #7a5c4a;
+  font-weight: 500;
+  font-family: 'Open Sans', sans-serif;
+}
+.input-group label {
+  font-weight: 600;
+  color: #5c4033;
+}
+.input-group input[type="file"] {
+  margin-top: 8px;
+}
+.input-group img {
+  display: block;
+  margin: 0 auto 10px auto;
+  border: 2.5px solid #ffcc99;
+  background: #f8f4ef;
+}
+.login-btn {
+  margin-top: 18px;
+  width: 100%;
+}
+.dialog-container {
+  margin-bottom: 18px;
+  text-align: center;
+}
+.dialog-content {
+  background: #fffae6;
+  color: #5c4033;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(255,204,153,0.13);
+}

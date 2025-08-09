@@ -116,16 +116,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Walang existing user na hindi pa verified, o kaya bagong signup.
                     // Ito ang original logic para sa pag-insert ng bagong user.
                     $plain_password = $_SESSION['pending_signup_password'] ?? null;
+                    $signup_name = $_SESSION['pending_signup_name'] ?? null;
 
-                    if ($plain_password) {
+                    if ($plain_password && $signup_name) {
                         $hashed_password = password_hash($plain_password, PASSWORD_DEFAULT); // Hash the password securely
 
-                        // Add 'verified' column to your INSERT statement
-                        $stmt = $conn->prepare("INSERT INTO Users (email, password, verified) VALUES (?, ?, 1)"); // Default to 1 (verified)
+                        // Add 'name' and 'verified' columns to your INSERT statement
+                        $stmt = $conn->prepare("INSERT INTO Users (name, email, password, verified) VALUES (?, ?, ?, 1)"); // Default to 1 (verified)
                         if ($stmt === false) {
                             $response['message'] = "Database error (insert prepare failed): " . $conn->error;
                         } else {
-                            $stmt->bind_param("ss", $user_email, $hashed_password);
+                            $stmt->bind_param("sss", $signup_name, $user_email, $hashed_password);
                             if ($stmt->execute()) {
                                 $response['status'] = "success";
                                 $response['message'] = "Account created and verified successfully! You can now log in.";
@@ -134,6 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 $_SESSION['loggedin'] = true;
                                 // I-clear ang signup-specific na data ng session
                                 unset($_SESSION['pending_signup_password']); // Clear plain password from session
+                                unset($_SESSION['pending_signup_name']); // Clear name from session
                                 unset($_SESSION['otp_email_for_verification']); // I-clear ang email pagkatapos ng matagumpay na signup
                                 unset($_SESSION['is_password_reset_flow']); // I-clear ang flow flag
                                 $response['redirect_url'] = "/Dashboard/dashboard.php"; // I-redirect sa dashboard pagkatapos ng matagumpay na signup
@@ -143,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $stmt->close();
                         }
                     } else {
-                        $response['message'] = "Missing password data for account creation. Please try signing up again.";
+                        $response['message'] = "Missing data for account creation. Please try signing up again.";
                     }
                 }
                 $stmt_check->close();

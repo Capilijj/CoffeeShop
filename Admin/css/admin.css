@@ -1,0 +1,36 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+  color: #333;
+}
+.admin-header {
+  background: #5c4033;
+  color: #fff;
+  padding: 24px 0 18px 0;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  font-family: 'Lora', serif;
+}
+.admin-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+  padding: 36px 32px 32px 32px;
+}
+.admin-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #A0522D;
+  margin-bottom: 18px;
+}
+.admin-section {
+  margin-bottom: 32px;
+}
+.admin-section:last-child {
+  margin-bottom: 0;
+}

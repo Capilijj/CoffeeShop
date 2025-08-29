@@ -31,7 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
         $email_input = trim($_POST["email"]);
         $password_input = $_POST["password"];
 
-        $stmt = $conn->prepare("SELECT id, email, password, profile_img FROM Users WHERE email = ?");
+        // Use role column from Users table (ENUM)
+        $stmt = $conn->prepare("SELECT id, email, password, profile_img, role FROM Users WHERE email = ?");
         if ($stmt === false) {
             $message_to_display = "Database error: " . $conn->error;
         } else {
@@ -45,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['user_email'] = $user['email'];
                     $_SESSION['loggedin'] = true;
+                    $_SESSION['user_role'] = isset($user['role']) ? strtolower($user['role']) : 'user';
                     // Set profile image session for header
                     if (!empty($user['profile_img'])) {
                         $_SESSION['user_profile_img'] = $user['profile_img'];
@@ -52,7 +54,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
                         unset($_SESSION['user_profile_img']);
                     }
                     $message_to_display = "Login successful! Welcome, " . htmlspecialchars($user['email']) . ".";
-                    $redirect_after_dialog = "/Dashboard/dashboard.php";
+                    // Redirect based on role
+                    if ($_SESSION['user_role'] === 'admin') {
+                        $redirect_after_dialog = "/Admin/admin.php";
+                    } else {
+                        $redirect_after_dialog = "/Dashboard/dashboard.php";
+                    }
                 } else {
                     $message_to_display = "Incorrect password. Please try again.";
                 }

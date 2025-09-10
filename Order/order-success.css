@@ -1,0 +1,42 @@
+.order-success-modal {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
+}
+.order-success-modal.show {
+  display: flex;
+}
+.order-success-content {
+  background: #fff;
+  padding: 36px 32px 28px 32px;
+  border-radius: 14px;
+  max-width: 350px;
+  width: 90vw;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+.order-success-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #388e3c;
+  margin-bottom: 12px;
+}
+.order-success-btn {
+  background: #A0522D;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+.order-success-btn:hover {
+  background: #7a3a1d;
+}

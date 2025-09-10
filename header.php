@@ -19,6 +19,7 @@ $userProfileImg = isset($_SESSION['user_profile_img']) ? $_SESSION['user_profile
         <a href="/Dashboard/dashboard.php#services">Services</a>
         <a href="/Dashboard/dashboard.php#contact-us">Contact Us</a>
         <?php if ($isLoggedIn): ?>
+            <a href="/Orders/orders.php" class="nav-orders-link">Orders</a>
             <a href="/Profile/profile.php" class="nav-profile-text-link">Profile</a>
         <?php endif; ?>
         <?php if ($isLoggedIn): ?>

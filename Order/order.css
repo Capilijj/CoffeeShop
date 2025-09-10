@@ -1,0 +1,119 @@
+/* Order Modal Styles */
+#orderModal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
+}
+.order-modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 24px 24px 24px;
+  width: 95%;
+  max-width: 400px;
+  max-height: 720px;
+  overflow-y: auto; /* Makes the modal scrollable if content exceeds height */
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+  text-align: center;
+}
+
+#orderCloseBtn {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 22px;
+  color: #A0522D;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.order-menu-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.order-menu-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #A0522D;
+  margin-bottom: 6px;
+}
+.order-menu-desc {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 8px;
+}
+.order-menu-price {
+  font-size: 1.1rem;
+  color: #388e3c;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.order-gcash {
+  margin: 16px 0 10px 0;
+}
+.order-gcash img {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  border: 2px solid #A0522D;
+}
+.order-upload {
+  margin: 12px 0 18px 0;
+}
+.order-upload label {
+  display: block;
+  margin-bottom: 6px;
+  color: #A0522D;
+  font-weight: 600;
+}
+.order-upload input[type="file"] {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px;
+  width: 100%;
+}
+.order-submit-btn {
+  background: #A0522D;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+.order-submit-btn:hover {
+  background: #7a3a1d;
+}
+
+.order-modal-content::-webkit-scrollbar {
+  width: 8px;
+  background: #fbeee6;
+  border-radius: 8px;
+}
+
+.order-modal-content::-webkit-scrollbar-thumb {
+  background: #A0522D;
+  border-radius: 8px;
+}
+
+.order-modal-content::-webkit-scrollbar-track {
+  background: #fbeee6;
+  border-radius: 8px;
+}
+
+/* For Firefox */
+.order-modal-content {
+  scrollbar-width: thin;
+  scrollbar-color: #A0522D #fbeee6;
+  border-radius: 12px;
+} 

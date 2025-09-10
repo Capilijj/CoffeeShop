@@ -121,3 +121,11 @@ body {
   font-weight: 600;
   box-shadow: 0 2px 8px rgba(255,204,153,0.13);
 }
+
+body {
+  background: linear-gradient(120deg, #c98c61 0%, #ac7756 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* ...existing code... */

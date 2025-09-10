@@ -160,21 +160,36 @@ let searchAddressInput = document.getElementById('searchAddressInput');
 let searchAddressBtn = document.getElementById('searchAddressBtn');
 let searchResults = document.getElementById('searchResults');
 let leafletMap, marker, selectedAddress = '';
-
+// Philippines bounds (approximate)
+const phBounds = L.latLngBounds(
+  L.latLng(4.2158, 116.8116), // Southwest
+  L.latLng(21.3210, 126.6044) // Northeast
+);
 openMapBtn.onclick = function() {
   mapModal.style.display = 'flex';
   setTimeout(function() {
     if (!leafletMap) {
-      leafletMap = L.map('leafletMap').setView([14.5995, 120.9842], 13); // Manila default
+      leafletMap = L.map('leafletMap', {
+        maxBounds: phBounds,
+        maxBoundsViscosity: 1.0
+      }).setView([12.8797, 121.7740], 6); // Center of PH
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
       }).addTo(leafletMap);
-      marker = L.marker([14.5995, 120.9842], {draggable:true}).addTo(leafletMap);
+      marker = L.marker([12.8797, 121.7740], {draggable:true}).addTo(leafletMap);
       marker.on('dragend', function(e) {
-        leafletMap.panTo(marker.getLatLng());
+        // Keep marker within PH bounds
+        if (!phBounds.contains(marker.getLatLng())) {
+          marker.setLatLng(phBounds.getCenter());
+          leafletMap.panTo(phBounds.getCenter());
+        } else {
+          leafletMap.panTo(marker.getLatLng());
+        }
       });
       leafletMap.on('click', function(e) {
-        marker.setLatLng(e.latlng);
+        if (phBounds.contains(e.latlng)) {
+          marker.setLatLng(e.latlng);
+        }
       });
     } else {
       leafletMap.invalidateSize();
@@ -190,7 +205,8 @@ searchAddressBtn.onclick = function() {
   let query = searchAddressInput.value.trim();
   if (!query) return;
   searchResults.innerHTML = '<div style="color:#888;font-size:0.95rem;">Searching...</div>';
-  fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query))
+  // Restrict search to PH only
+  fetch('https://nominatim.openstreetmap.org/search?format=json&countrycodes=ph&q=' + encodeURIComponent(query))
     .then(res => res.json())
     .then(data => {
       if (data.length === 0) {
@@ -199,21 +215,27 @@ searchAddressBtn.onclick = function() {
       }
       searchResults.innerHTML = '';
       data.slice(0,5).forEach(function(item) {
-        let div = document.createElement('div');
-        div.textContent = item.display_name;
-        div.style.cursor = 'pointer';
-        div.style.padding = '4px 0';
-        div.style.borderBottom = '1px solid #eee';
-        div.style.fontSize = '0.98rem';
-        div.onclick = function() {
-          marker.setLatLng([item.lat, item.lon]);
-          leafletMap.setView([item.lat, item.lon], 16);
-          selectedAddress = item.display_name;
-          searchAddressInput.value = item.display_name;
-          searchResults.innerHTML = '';
-        };
-        searchResults.appendChild(div);
+        // Only allow results within PH bounds
+        if (phBounds.contains([parseFloat(item.lat), parseFloat(item.lon)])) {
+          let div = document.createElement('div');
+          div.textContent = item.display_name;
+          div.style.cursor = 'pointer';
+          div.style.padding = '4px 0';
+          div.style.borderBottom = '1px solid #eee';
+          div.style.fontSize = '0.98rem';
+          div.onclick = function() {
+            marker.setLatLng([item.lat, item.lon]);
+            leafletMap.setView([item.lat, item.lon], 16);
+            selectedAddress = item.display_name;
+            searchAddressInput.value = item.display_name;
+            searchResults.innerHTML = '';
+          };
+          searchResults.appendChild(div);
+        }
       });
+      if (!searchResults.hasChildNodes()) {
+        searchResults.innerHTML = '<div style="color:#a00;font-size:0.95rem;">No PH results found.</div>';
+      }
     });
 };
 useLocationBtn.onclick = function() {

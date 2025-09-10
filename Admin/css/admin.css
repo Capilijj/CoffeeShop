@@ -1,3 +1,112 @@
+.dashboard-title {
+  font-family: 'Lora', 'Merriweather', serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #7c3f10;
+  letter-spacing: 1.5px;
+  text-align: center;
+  margin-bottom: 28px;
+  margin-top: 10px;
+  text-shadow: 0 2px 8px #f8f5f1, 0 1px 0 #fff;
+}
+.orders-table {
+  min-width: 1200px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 18px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(160,82,45,0.10);
+  font-size: 0.97rem;
+  font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
+  margin-left: 32px;
+  margin-right: 32px;
+}
+.orders-table th, .orders-table td {
+  padding: 8px 14px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  white-space: nowrap;
+  color: #4b2e13;
+  letter-spacing: 0.01em;
+}
+.orders-table th {
+  background: #f8f5f1;
+  color: #A0522D;
+  font-weight: 800;
+  font-size: 1.05rem;
+  border-bottom: 2px solid #e0c9b1;
+  text-shadow: 0 1px 0 #fff;
+}
+.orders-table tr:last-child td {
+  border-bottom: none;
+}
+.order-status {
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  min-width: 90px;
+  text-align: center;
+}
+.order-status.pending {
+  background: #fff7e6;
+  color: #A0522D;
+  border: 1px solid #ffe0b2;
+}
+.order-status.processing {
+  background: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #90caf9;
+}
+.order-status.payment {
+  background: #e8f5e9;
+  color: #388e3c;
+  border: 1px solid #a5d6a7;
+}
+.order-status.verified {
+  background: #e8f5e9;
+  color: #388e3c;
+  border: 1px solid #a5d6a7;
+}
+.order-status.payment-verified {
+  background: #e8f5e9;
+  color: #388e3c;
+  border: 1px solid #a5d6a7;
+}
+.order-status.in-progress {
+  background: #fffde7;
+  color: #fbc02d;
+  border: 1px solid #ffe082;
+}
+.order-status.completed {
+  background: #e0f7fa;
+  color: #00897b;
+  border: 1px solid #4dd0e1;
+}
+.orders-table select {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background: #fafafa;
+  color: #333;
+}
+.orders-table button[type="submit"] {
+  background: #A0522D;
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.orders-table button[type="submit"]:hover {
+  background: #7c3f10;
+}
 body {
   font-family: 'Open Sans', sans-serif;
   background: #f5f5f5;
@@ -15,22 +124,12 @@ body {
   font-family: 'Lora', serif;
 }
 .admin-container {
-  max-width: 900px;
+  max-width: 99vw;
   margin: 40px auto;
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 4px 18px rgba(0,0,0,0.10);
-  padding: 36px 32px 32px 32px;
+  padding: 24px 8px 24px 8px;
+  overflow-x: auto;
 }
-.admin-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #A0522D;
-  margin-bottom: 18px;
-}
-.admin-section {
-  margin-bottom: 32px;
-}
-.admin-section:last-child {
-  margin-bottom: 0;
-}
+

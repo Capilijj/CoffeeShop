@@ -1,0 +1,19 @@
+.order-menu-btn {
+    background: #A0522D !important;
+    color: #fff !important;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(160,82,45,0.08);
+}
+.order-menu-btn:hover {
+    background: #7a3a1d !important;
+    color: #ffe4c4 !important;
+    box-shadow: 0 4px 16px rgba(160,82,45,0.18);
+}
+

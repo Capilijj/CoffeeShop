@@ -1,10 +1,15 @@
 /* Footer Styles */
 .footer {
     text-align: center;
-    padding: 20px 20px; /* More padding */
-    background-color: #5c4033; /* Darker coffee brown */
-    color: #f8f5f1; /* Lighter text color */
+    padding: 20px 20px;
+    background-color: #5c4033;
+    color: #f8f5f1;
     font-size: 14px;
     width: 100%;
-    margin-top: auto; /* Pushes footer to the bottom */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    margin-top: auto;
+    z-index: 100;
 }

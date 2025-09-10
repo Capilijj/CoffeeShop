@@ -1,5 +1,5 @@
 <?php
-// Magsimula ng session
+// start session
 session_start();
 include_once 'LoginPage/database_connection.php';
 
@@ -10,7 +10,7 @@ $otp_verification_message = "";
 $otp_verification_status = "";
 $is_password_reset_flow = false;
 
-// Check kung kailangan nating buksan ang OTP modal
+
 if (isset($_SESSION['open_otp_modal_on_load']) && $_SESSION['open_otp_modal_on_load']) {
     $open_otp_modal = true;
     unset($_SESSION['open_otp_modal_on_load']);
@@ -176,6 +176,7 @@ if (isset($conn) && $conn instanceof mysqli) {
     <link rel="stylesheet" href="LoginPage/dialogs.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="Order/order.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -198,6 +199,7 @@ if (isset($conn) && $conn instanceof mysqli) {
     ?>
 
     <script src="LoginPage/Login.js" defer></script>
+    <script src="Order/order.js" defer></script>
     <script src="../responsive.js"></script>
 </body>
 </html>

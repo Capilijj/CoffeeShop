@@ -1,128 +1,147 @@
 /* --- DONUT NAV MENU FOR MOBILE --- */
 @media (max-width: 900px) {
-  .nav-links {
-    display: none !important;
-  }
-  .nav-toggle {
-    display: block !important;
-    position: absolute;
-    right: 30px;
-    top: 32px;
-    z-index: 20;
-  }
-  /*
-   * UPDATED: Mobile Menu Container
-   * Changed from a circular "donut" to a rectangular box.
-   * Adjusted dimensions, background, and spacing to fix text overlap.
-   */
-  .donut-nav-menu {
-    position: fixed;
-    top: 90px; /* Positioned below the hamburger toggle */
-    right: 30px;
-    width: 220px; /* Fixed width for better readability */
-    height: auto; /* Height will adjust to content */
-    background: #f8f4ef; /* Light coffee-themed background color */
-    border-radius: 14px; /* Rounded corners for a box shape */
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transform: scale(0.9) translateY(-20px);
-    transition: opacity 0.3s, transform 0.3s;
-    z-index: 1001;
-    padding: 20px; /* Uniform padding for better spacing */
-    gap: 10px; /* Added gap between items */
-  }
-  .donut-nav-menu.show {
-    opacity: 1;
-    pointer-events: auto;
-    transform: scale(1) translateY(0);
-  }
-  .donut-link, .donut-login-btn {
-    display: block;
-    color: #5c4033;
-    font-size: 1.15rem;
-    font-weight: 600;
-    text-decoration: none;
-    margin: 0; /* Removed margin to use gap for spacing */
-    padding: 8px 18px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.8);
-    transition: background 0.2s, color 0.2s;
-    text-align: center;
-    width: 100%; /* Full width to fill the box */
-    box-sizing: border-box;
-  }
-  .donut-link:hover, .donut-login-btn:hover {
-    background: #ffcc99;
-    color: #6F4E37;
-  }
-  .donut-login-btn {
-    border: 2px solid #ffcc99;
-    color: #ffcc99;
-    background: #5c4033;
-    margin-top: 8px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    transition: all 0.2s;
-  }
-  .donut-login-btn:hover {
-    background: #ffcc99;
-    color: #5c4033;
-  }
+    .nav-links {
+        display: none !important;
+    }
+    .nav-toggle {
+        display: block !important;
+        position: absolute;
+        right: 30px;
+        top: 32px;
+        z-index: 20;
+    }
+    /*
+     * UPDATED: Mobile Menu Container
+     * Changed from a circular "donut" to a rectangular box.
+     * Adjusted dimensions, background, and spacing to fix text overlap.
+     */
+    .donut-nav-menu {
+        position: fixed;
+        top: 90px;
+        /* Positioned below the hamburger toggle */
+        right: 30px;
+        width: 220px;
+        /* Fixed width for better readability */
+        height: auto;
+        /* Height will adjust to content */
+        background: #f8f4ef;
+        /* Light coffee-themed background color */
+        border-radius: 14px;
+        /* Rounded corners for a box shape */
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.9) translateY(-20px);
+        transition: opacity 0.3s, transform 0.3s;
+        z-index: 1001;
+        padding: 20px;
+        /* Uniform padding for better spacing */
+        gap: 10px;
+        /* Added gap between items */
+    }
+    .donut-nav-menu.show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: scale(1) translateY(0);
+    }
+    .donut-link,
+    .donut-login-btn {
+        display: block;
+        color: #5c4033;
+        font-size: 1.15rem;
+        font-weight: 600;
+        text-decoration: none;
+        margin: 0;
+        /* Removed margin to use gap for spacing */
+        padding: 8px 18px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        transition: background 0.2s, color 0.2s;
+        text-align: center;
+        width: 100%;
+        /* Full width to fill the box */
+        box-sizing: border-box;
+    }
+    .donut-link:hover,
+    .donut-login-btn:hover {
+        background: #ffcc99;
+        color: #6F4E37;
+    }
+    .donut-login-btn {
+        border: 2px solid #ffcc99;
+        color: #ffcc99;
+        background: #5c4033;
+        margin-top: 8px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.2s;
+    }
+    .donut-login-btn:hover {
+        background: #ffcc99;
+        color: #5c4033;
+    }
 }
+
 /* Responsive main content/dashboard */
 @media (max-width: 900px) {
-  .main-content {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    height: auto;
-    min-height: 60vh;
-    padding: 0 4vw 0;
-    margin-top: 110px; /* Add spacing for fixed header */
-    box-sizing: border-box;
-    width: 100vw;
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
-  .menu-section {
-    margin-top: 110px !important; /* Add spacing for fixed header on menu section too */
-  }
-  .content-section {
-    max-width: 98vw;
-    width: 100%;
-    margin: 0;
-    padding: 40px 10px;
-    border-radius: 14px;
-    align-items: flex-start;
-  }
-  .main-title {
-    font-size: 2.2rem;
-    text-align: left;
-  }
-  .subtitle {
-    font-size: 1rem;
-    text-align: left;
-  }
-  .button-container {
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    align-items: flex-start;
-  }
-  .header {
-    justify-content: flex-start;
-    padding: 10px 10px 10px 18px;
-  }
-  .header-logo {
-    width: 70px;
-    margin-right: 10px;
-  }
+    .main-content {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        height: auto;
+        min-height: 60vh;
+        padding: 0 4vw 0;
+        margin-top: 110px;
+        /* Add spacing for fixed header */
+        box-sizing: border-box;
+        width: 100vw;
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+    .menu-section {
+        margin-top: 110px !important;
+        /* Add spacing for fixed header on menu section too */
+    }
+    .content-section {
+        max-width: 98vw;
+        width: 100%;
+        margin: 0;
+        padding: 40px 10px;
+        border-radius: 14px;
+        align-items: flex-start;
+        /* FIX: Removed fixed height to allow content to push button down naturally */
+        min-height: 300px;
+    }
+    .main-title {
+        font-size: 2.2rem;
+        text-align: left;
+    }
+    .subtitle {
+        font-size: 1rem;
+        text-align: left;
+    }
+    .button-container {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        align-items: flex-start;
+        /* FIX: Added margin to push the buttons to the bottom */
+        margin-top: auto;
+    }
+    .header {
+        justify-content: flex-start;
+        padding: 10px 10px 10px 18px;
+    }
+    .header-logo {
+        width: 70px;
+        margin-right: 10px;
+    }
 }
+
 body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
@@ -134,17 +153,17 @@ body {
 .main-content {
     width: 100vw;
     height: 100vh;
-    background-image: url('/Image/Coffee.webp');
+    background-image: url('/Image/Coffee.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* ← para sa left alignment */
+    justify-content: flex-start;
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     margin: 0 auto;
-    padding: 0 10%; /* ← padding sa gilid para hindi dikit */
+    padding: 0 10%;
     position: relative;
 }
 
@@ -155,8 +174,7 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* ← para kaliwa ang alignment */
-    /* UPDATED: Adjusted max-width to make the container wider for a landscape feel */
+    align-items: flex-start;
     max-width: 800px;
     width: 100%;
     margin-top: 60px;
@@ -168,14 +186,14 @@ body {
     font-weight: bold;
     margin: 0 0 20px 0;
     letter-spacing: 2px;
-    text-align: left; /* ← para left aligned */
+    text-align: left;
 }
 
 .subtitle {
     font-size: 1.2rem;
     line-height: 1.6;
     margin: 20px 0;
-    text-align: left; /* ← para left aligned */
+    text-align: left;
 }
 
 .button-container {
@@ -216,15 +234,16 @@ body {
     width: 100vw;
     text-align: center;
     padding: 60px 0;
-    background-color: #F5F5DC;
+    background-color: #b17a53;
     margin: 0 auto;
     box-sizing: border-box;
 }
 
+/* UPDATED: Increased font size and added margin bottom for the menu section title */
 .menu-section h2 {
-    font-size: 2.8rem;
-    color: #6F4E37;
-    margin-bottom: 40px;
+    font-size: 3.2rem; /* Increased size */
+    color: #050505;
+    margin-bottom: 50px; /* Increased margin */
     letter-spacing: 1px;
     text-align: center;
 }
@@ -242,7 +261,7 @@ body {
 .menu-card {
     background-color: #fff;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     width: 100%;
     min-width: 320px;
@@ -253,6 +272,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* This ensures the "Order Now" button stays at the bottom */
+    justify-content: space-between;
+    transition: transform 0.3s ease; /* Add transition for hover effect */
+}
+
+.menu-card:hover {
+    transform: translateY(-8px); /* Lift the card on hover */
 }
 
 .menu-card img {
@@ -276,9 +302,11 @@ body {
 .menu-card p {
     font-size: 1.1rem;
     color: #4A2C2A;
+    line-height: 1.6;
     margin: 0 0 15px 0;
     text-align: center;
     padding: 0 16px;
+    /* FIX: Removed fixed min-height for flexible description content */
 }
 
 .Order-button {
@@ -314,37 +342,154 @@ body {
     text-align: center;
 }
 
+/* UPDATED: Increased font size and added margin bottom for all section titles */
+.scroll-section h2 {
+    font-size: 3.2rem; /* Increased size */
+    color: #050505;
+    margin-bottom: 50px; /* Increased margin */
+}
+
+#about-us,
+#services,
+#contact-us {
+    min-height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    box-sizing: border-box;
+    padding: 80px 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 #about-us {
-    background-color: #E6E0D2;
+    background-color: #9b5b3e;
 }
 
 #services {
-    background-color: #C1A186;
+    background-color: #b48b69;
 }
+
 
 #contact-us {
     background-color: #A0522D;
     color: #F5F5DC;
 }
 
-.scroll-section h2 {
-    font-family: 'Lora', serif;
-    font-size: 2.5rem;
+/* New: Section Content Containers */
+.section-content-container {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #4A2C2A;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.section-content-container p {
+    font-size: 1.15rem;
+    line-height: 1.6;
     margin-bottom: 20px;
     text-align: center;
 }
 
-.scroll-section p,
-.scroll-section ul {
-    font-size: 1.1rem;
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    font-size: 1.15rem;
+}
+
+.contact-info div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.contact-info i {
+    color: #A0522D;
+    font-size: 1.3rem;
+}
+
+.contact-info div span {
+    color: #4A2C2A;
+}
+
+/* Fix for mobile view on new sections */
+@media (max-width: 900px) {
+    .section-content-container {
+        padding: 20px;
+    }
+}
+
+/* --- SERVICES SECTION CONTAINERS --- */
+
+/* This container will hold the new cards. It uses CSS Grid to arrange the items. */
+.service-container {
+    display: grid;
+    /* This creates a responsive layout that fits as many columns as possible, with a minimum width of 280px. */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* This styles the individual service cards. It makes them look like the menu cards but slightly different. */
+.service-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Adds a hover effect to lift the card and make it more interactive. */
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.service-card h3 {
+    font-family: 'Lora', serif;
+    color: #6F4E37;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    font-size: 1rem;
+    color: #4A2C2A;
     line-height: 1.6;
 }
 
-.scroll-section ul {
-    list-style-type: none;
-    padding: 0;
+/* --- ANIMATION FOR SECTIONS --- */
+@keyframes sectionFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.scroll-section li {
-    margin-bottom: 10px;
+/* Inalis ang .menu-section sa animation rule */
+.scroll-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }

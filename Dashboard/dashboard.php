@@ -30,8 +30,9 @@ if (isset($_SESSION['user_email'])) {
         <h1 class="main-title">Enjoy The Most Delicious Coffee</h1>
         <p class="subtitle">Start Your Day With Coffee, Enhancing Productivity And Mood. Its Invigorating Aroma Sets A Focused Tone For Tackling Tasks With Renewed Energy And Positivity.</p>
         <div class="button-container">
-            <button class="action-button">Explore</button>
-            <button class="action-button secondary">Order Coffee</button>
+            <a href="#about-us" class="action-button">Explore</a>
+            <!-- In-update ang href para mag-scroll sa #products section sa halip na mag-redirect -->
+            <a href="#products" class="action-button secondary">Order Coffee</a>
         </div>
     </div>
 </div>

@@ -493,3 +493,38 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* --- CONTACT US SECTION --- */
+.contact-info {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    font-family: 'Open Sans', sans-serif;
+    color: #555;
+}
+
+.contact-info div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-info i {
+    color: #6F4E37;
+    font-size: 1.5rem;
+}
+
+/* Adding hover effect to About Us and Contact Us containers */
+#about-us .section-content-container,
+#contact-us .section-content-container {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 16px; /* Added for a consistent look */
+}
+
+#about-us .section-content-container:hover,
+#contact-us .section-content-container:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}

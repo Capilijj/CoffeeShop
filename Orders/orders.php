@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../LoginPage/Login.php');
@@ -157,7 +158,6 @@ if ($result && $result->num_rows > 0) {
     </main>
     <?php include '../footer.php'; ?>
 
-    <!-- Custom Confirmation Modal -->
     <div id="cancel-modal" class="modal-overlay" style="display:none;">
         <div class="modal-content">
             <p>Are you sure you want to cancel this order?</p>

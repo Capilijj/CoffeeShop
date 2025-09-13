@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once '../LoginPage/database_connection.php';
-
 // Only allow access if user is logged in and is admin
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
     header('Location: ../index.php');
@@ -27,8 +26,8 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role']) || $_SESSION[
         </div>
         <div class="admin-section">
             <div class="dashboard-title">User Order Dashboard</div>
-            <div style="overflow-x:auto;">
-            <table class="orders-table" style="width:100%;border-collapse:collapse;">
+            <div class="orders-table-container">
+            <table class="orders-table">
                 <thead>
                     <tr>
                         <th>Email</th>

@@ -1,58 +1,55 @@
-
 // Responsive donut-style mobile nav for header
 document.addEventListener('DOMContentLoaded', function () {
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
     let donutMenu = null;
 
-
     function createDonutMenu() {
         if (donutMenu) return donutMenu;
         donutMenu = document.createElement('div');
         donutMenu.className = 'donut-nav-menu';
-        // Clone nav links except login/profile
-        const links = Array.from(navLinks.querySelectorAll('a:not(.nav-login-btn):not(.nav-profile-btn)'));
-        // Add login or profile button as last
-        const loginBtn = navLinks.querySelector('.nav-login-btn');
-        const profileBtn = navLinks.querySelector('.nav-profile-btn');
-        const allLinks = links.slice();
-        if (profileBtn) {
-            allLinks.push(profileBtn);
-        } else if (loginBtn) {
-            allLinks.push(loginBtn);
-        }
-        allLinks.forEach((link, i) => {
+        
+        // Clone nav links from the main navigation
+        const allLinks = Array.from(navLinks.querySelectorAll('a'));
+        
+        allLinks.forEach(link => {
             const donutLink = link.cloneNode(true);
-            if (profileBtn && link === profileBtn) {
-                donutLink.classList.remove('nav-profile-btn');
-                donutLink.classList.add('nav-profile-btn');
-                // Also clone the profile-circle
+            
+            // Adjust specific classes for mobile menu items
+            if (donutLink.classList.contains('nav-login-btn')) {
+                donutLink.classList.add('donut-login-btn');
+                donutLink.classList.remove('nav-login-btn');
+            } else if (donutLink.classList.contains('nav-profile-btn')) {
+                // For the profile button, ensure the circle is cloned correctly
                 const origCircle = link.querySelector('.profile-circle');
                 if (origCircle) {
                     donutLink.innerHTML = '';
                     donutLink.appendChild(origCircle.cloneNode(true));
                 }
-            } else if (loginBtn && link === loginBtn) {
-                donutLink.classList.remove('nav-login-btn');
-                donutLink.classList.add('donut-login-btn');
             } else {
                 donutLink.classList.add('donut-link');
             }
             donutMenu.appendChild(donutLink);
         });
+        
         document.body.appendChild(donutMenu);
+        
         // Close menu on outside click
         document.addEventListener('click', function(e) {
             if (donutMenu && !donutMenu.contains(e.target) && e.target !== navToggle) {
                 donutMenu.classList.remove('show');
             }
         });
+        
         return donutMenu;
     }
 
     navToggle.addEventListener('click', function (e) {
         e.stopPropagation();
-        if (!donutMenu) createDonutMenu();
+        if (!donutMenu) {
+            createDonutMenu();
+            setupSmoothScroll(donutMenu);
+        }
         donutMenu.classList.toggle('show');
     });
 
@@ -77,19 +74,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
-    // Desktop nav
+
+    // Desktop nav smooth scroll
     setupSmoothScroll(navLinks);
-    // Mobile nav (donut menu)
-    document.addEventListener('DOMContentLoaded', function() {
-        if (donutMenu) setupSmoothScroll(donutMenu);
-    });
-    // Also re-setup when donut menu is created
-    const origCreateDonutMenu = createDonutMenu;
-    createDonutMenu = function() {
-        const menu = origCreateDonutMenu();
-        setupSmoothScroll(menu);
-        return menu;
-    };
 
     // Hide donut menu on resize to desktop
     window.addEventListener('resize', function () {

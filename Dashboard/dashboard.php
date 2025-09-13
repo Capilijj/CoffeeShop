@@ -55,8 +55,9 @@ echo '</div>';
     </div>
 
     <div id="services" class="scroll-section">
-        <h2>Services</h2>
-        <div class="service-container">
+    <h2>Our Services</h2>
+    <div class="section-content-container">
+        <div class="services-slider-wrapper">   
             <div class="service-card">
                 <i class="fas fa-truck-fast"></i>
                 <h3>Fast Delivery</h3>
@@ -74,7 +75,11 @@ echo '</div>';
             </div>
         </div>
     </div>
-
+     <div class="slider-controls">
+        <button id="prev-btn" class="slider-btn"><i class="fas fa-chevron-left"></i></button>
+        <button id="next-btn" class="slider-btn"><i class="fas fa-chevron-right"></i></button>
+    </div>
+</div>
     <div id="contact-us" class="scroll-section">
         <h2>Contact Us</h2>
         <div class="section-content-container">

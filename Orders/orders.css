@@ -111,3 +111,19 @@ body {
     min-height: 100vh;
     font-family: Arial, sans-serif; /* Added a font for better readability */
 }
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+  .orders-container {
+    /* Nagdagdag ng padding para sa margin sa magkabilang gilid */
+    padding-left: 16px; 
+    padding-right: 16px;
+    /* Inalis ang nakaraang padding, pinaghiwalay para sa mas malinaw na layunin */
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  .orders-table th, .orders-table td {
+    padding: 8px 5px; /* In-adjust ang padding para masikip ang espasyo */
+    font-size: 0.9em;
+  }
+}

@@ -250,6 +250,9 @@ useLocationBtn.onclick = function() {
   searchAddressInput.value = '';
   selectedAddress = '';
 };
+
 </script>
+        <script src="../responsive.js"></script>
+        
 </body>
 </html>

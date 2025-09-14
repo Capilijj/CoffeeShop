@@ -87,15 +87,15 @@ echo '</div>';
             <div class="contact-info">
                 <div>
                     <i class="fas fa-location-dot"></i>
-                    <span>123 Coffee Bean Lane, Brew City, CA 90210</span>
+                    <span>Bagong silangan brookheaven st.</span>
                 </div>
                 <div>
                     <i class="fas fa-phone"></i>
-                    <span>(123) 456-7890</span>
+                    <span>(+63)9948091840</span>
                 </div>
                 <div>
                     <i class="fas fa-envelope"></i>
-                    <span>info@donutcafe.com</span>
+                    <span>coffeecraftorig@gmail.com</span>
                 </div>
             </div>
         </div>

@@ -34,9 +34,67 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
   transition: background 0.2s;
 }
 .order-success-btn:hover {
-  background: #7a3a1d;
+    background: #7a3a1d;
+}
+
+/* --- NEW: Feedback Modal Styles (For 5-Star Rating) --- */
+
+/* Style for the title inside the feedback modal */
+#oneTimeFeedbackModal .order-success-title {
+    color: #A0522D;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+/* Style for the rating stars container */
+.rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 20px 0;
+}
+
+/* Base style for each star */
+.rating-stars .star {
+    font-size: 2rem;
+    color: #ccc; /* Default grey color */
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+/* Style for selected (filled) stars */
+.rating-stars .star.selected {
+    color: #ffc107; /* Yellow/Gold color for selected stars */
+}
+
+/* Hover effect */
+.rating-stars .star:hover {
+    color: #ff9800; /* Darker gold on hover */
+}
+
+/* Textarea for comments */
+#oneTimeFeedbackForm textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box; 
+    font-size: 1rem;
+    resize: vertical; 
+}
+
+/* Make sure the buttons are full width for better mobile experience */
+#oneTimeFeedbackForm button {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Skip Button Style */
+#skipFeedbackBtn {
+    background-color: #777 !important;
+    color: white !important;
 }

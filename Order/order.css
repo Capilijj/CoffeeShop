@@ -1,13 +1,17 @@
 /* Order Modal Styles */
 #orderModal {
-  display: none;
+  /* CRITICAL FIX: Ensure display is none by default, position is fixed, and z-index is high */
+  display: none; 
   position: fixed;
   z-index: 9999;
   left: 0; top: 0; right: 0; bottom: 0;
+  width: 100%; 
+  height: 100%;
   background: rgba(0,0,0,0.5);
   align-items: center;
   justify-content: center;
 }
+
 .order-modal-content {
   background: #fff;
   border-radius: 12px;
@@ -15,7 +19,7 @@
   width: 95%;
   max-width: 400px;
   max-height: 720px;
-  overflow-y: auto; /* Makes the modal scrollable if content exceeds height */
+  overflow-y: auto; 
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   position: relative;
   text-align: center;
@@ -49,20 +53,105 @@
   color: #444;
   margin-bottom: 8px;
 }
-.order-menu-price {
-  font-size: 1.1rem;
-  color: #388e3c;
-  font-weight: 600;
-  margin-bottom: 16px;
+
+/* --- FORM & ADD-ONS STYLING --- */
+
+/* Quantity Input Styling */
+.qty-group {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:12px 0 18px 0;
 }
+#orderQty {
+    width: 60px;
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 6px 0;
+    border-radius: 6px;
+    border: 1px solid #A0522D;
+    font-weight: 500;
+}
+.qty-group label {
+    margin-right: 10px;
+    font-weight: 600;
+    color: #A0522D;
+}
+
+/* Add-ons Section */
+.add-ons-section {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 15px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 10px;
+    text-align: left;
+    background: #fcfcfc;
+}
+.addon-category-group {
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+.addon-category-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+.addon-category-title {
+    color: #A0522D; 
+    margin: 5px 0 8px 0; 
+    font-weight: 700;
+    font-size: 1rem;
+}
+.addon-option-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    padding: 4px 0;
+}
+.addon-label {
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #444;
+    display: flex;
+    align-items: center;
+}
+.addon-label input[type="radio"],
+.addon-label input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #388e3c; /* Change checkbox color */
+}
+.addon-price {
+    color: #388e3c; 
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Total Price Display */
+.total-price-display {
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    color: #A0522D; 
+    text-align: center; 
+    margin-top: 15px;
+}
+.total-price-display span {
+    color: #388e3c;
+}
+
+/* Payment Options & QR Code */
 .order-gcash {
   margin: 16px 0 10px 0;
 }
 .order-gcash img {
-  width: 120px;
-  height: 120px;
-  border-radius: 8px;
-  border: 2px solid #A0522D;
+  width: 260px; 
+  height: 260px; 
+  border-radius: 16px;
+  object-fit: contain; 
+  box-shadow: 0 2px 12px rgba(160,82,45,0.10);
+  margin: 12px 0;
 }
 .order-upload {
   margin: 12px 0 18px 0;
@@ -75,11 +164,96 @@
 }
 .order-upload input[type="file"] {
   border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 6px;
+  border-radius: 6px;
+  padding: 8px;
   width: 100%;
 }
 .order-submit-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+.order-submit-btn:hover {
+    opacity: 0.9;
+}
+
+/* Ensure the profile block popup is styled correctly */
+.order-block-popup {
+    display: none;
+    position: fixed;
+    z-index: 10000; 
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    align-items: center;
+    justify-content: center;
+}
+
+.order-block-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 300px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.order-block-content h2 {
+    color: #A0522D;
+    margin-bottom: 15px;
+}
+
+.order-block-content p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+#goToProfileBtn {
+    background: #388e3c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#goToProfileBtn:hover {
+    background: #2e7d32;
+}
+
+/* Order Success Modal (Retained) */
+.order-success-modal {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
+}
+.order-success-modal.show {
+  display: flex;
+}
+.order-success-content {
+  background: #fff;
+  padding: 36px 32px 28px 32px;
+  border-radius: 14px;
+  max-width: 350px;
+  width: 90vw;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+.order-success-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #388e3c;
+  margin-bottom: 12px;
+}
+.order-success-btn {
   background: #A0522D;
   color: #fff;
   border: none;
@@ -88,32 +262,25 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.2s;
 }
-.order-submit-btn:hover {
-  background: #7a3a1d;
+.addon-option.out-of-stock-addon {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #f8f8f8;
+    padding: 5px 8px;
+    border-radius: 4px;
+    margin-bottom: 5px;
 }
-
-.order-modal-content::-webkit-scrollbar {
-  width: 8px;
-  background: #fbeee6;
-  border-radius: 8px;
+.addon-option.out-of-stock-addon label {
+    text-decoration: line-through;
+    color: #888;
 }
-
-.order-modal-content::-webkit-scrollbar-thumb {
-  background: #A0522D;
-  border-radius: 8px;
+.addon-option .stock-alert {
+    color: #f44336;
+    font-weight: 700;
+    margin-left: 8px;
+    font-size: 0.9em;
 }
-
-.order-modal-content::-webkit-scrollbar-track {
-  background: #fbeee6;
-  border-radius: 8px;
+.addon-option.out-of-stock-addon input[disabled] {
+    cursor: not-allowed;
 }
-
-/* For Firefox */
-.order-modal-content {
-  scrollbar-width: thin;
-  scrollbar-color: #A0522D #fbeee6;
-  border-radius: 12px;
-} 

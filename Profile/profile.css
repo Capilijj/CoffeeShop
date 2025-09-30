@@ -128,4 +128,20 @@ body {
   display: flex;
   flex-direction: column;
 }
-/* ...existing code... */
+
+/* BAGONG STYLING PARA SA SUGGESTION FORM */
+.input-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+.login-btn.secondary {
+  background: #eee !important;
+  color: #5c4033 !important;
+  border: 1px solid #ccc;
+}

@@ -54,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../footer.css">
 </head>
 <body>
-<!-- CSS moved to profile.css -->
 <?php include '../header.php'; ?>
 <div class="main-content">
     <div class="content-section">
@@ -67,7 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="profile-email"><?php echo htmlspecialchars($email); ?></div>
             
             <button id="editProfileBtn" class="login-btn" type="button" style="margin-bottom:18px;">Edit Profile</button>
-            <!-- Inilipat ang Log Out button sa loob ng profile card -->
+            
+            <button id="suggestionFeedbackBtn" class="login-btn secondary" type="button" style="margin-top:10px; margin-bottom:18px; background:#A0522D; color:#fff;">Give a Suggestion</button>
+
             <form action="../LoginPage/logout.php" method="POST" style="margin-top:16px;">
                 <button type="submit" class="login-btn coffee-logout-btn" style="background:#5c4033; color:#ffcc99;">Log Out</button>
             </form>
@@ -98,7 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <button type="button" id="openMapBtn" style="padding:6px 14px;background:#6F4E37;color:#fff;border:none;border-radius:6px;cursor:pointer;">Map</button>
                     </div>
                 </div>
-                <!-- Map Modal -->
                 <div id="mapModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:9999;align-items:center;justify-content:center;">
                   <div style="background:#fff;padding:18px 18px 8px 18px;border-radius:12px;max-width:420px;width:95vw;box-shadow:0 4px 24px rgba(0,0,0,0.18);position:relative;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
@@ -118,16 +118,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="button" class="login-btn secondary" style="margin-top:8px;background:#eee;color:#5c4033;" onclick="hideEditProfile()">Cancel</button>
             </form>
         </div>
-    </div>
+
+        <div id="suggestionFeedbackFormWrapper" style="display:none;">
+            <h1 style="text-align:center;">Suggest a Feature/Improvement</h1>
+            <div id="suggestionDialogContainer" class="dialog-container" style="display:none;"><div id="suggestionDialogContent" class="dialog-content"></div></div>
+            <form id="suggestionForm" method="POST" action="../Feedback/save_feedback.php">
+                <input type="hidden" name="feedback_type" value="Suggestions Page"> 
+                <div class="input-group">
+                    <label for="feedback_text">Your Suggestion</label>
+                    <textarea name="feedback_text" id="feedback_text" rows="6" placeholder="Tell us what feature you'd like to see or how we can improve our service..." required style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;resize:vertical;"></textarea>
+                </div>
+                <button type="submit" class="login-btn" style="background:#A0522D; color:#fff;">Submit Suggestion</button>
+                <button type="button" class="login-btn secondary" style="margin-top:8px;background:#eee;color:#5c4033;" onclick="hideSuggestionForm()">Cancel</button>
+            </form>
+        </div>
+        </div>
 </div>
 <?php include '../footer.php'; ?>
-<!-- Leaflet.js for Map -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 // Show edit form when Edit Profile is clicked
 document.getElementById('editProfileBtn').onclick = function() {
     document.getElementById('profileCard').style.display = 'none';
+    document.getElementById('suggestionFeedbackFormWrapper').style.display = 'none'; // I-hide ang suggestion form
     document.getElementById('editProfileFormWrapper').style.display = 'block';
 };
 function hideEditProfile() {
@@ -151,7 +165,70 @@ function previewProfileImg(event) {
     }, 500);
 <?php endif; ?>
 
-// Map modal logic
+
+// JAVASCRIPT LOGIC PARA SA SUGGESTION FORM
+document.getElementById('suggestionFeedbackBtn').onclick = function() {
+    document.getElementById('profileCard').style.display = 'none';
+    document.getElementById('editProfileFormWrapper').style.display = 'none'; // Siguraduhin na nakatago ang edit form
+    document.getElementById('suggestionFeedbackFormWrapper').style.display = 'block'; // I-display ang suggestion form
+};
+
+function hideSuggestionForm() {
+    document.getElementById('suggestionFeedbackFormWrapper').style.display = 'none';
+    document.getElementById('suggestionDialogContainer').style.display = 'none'; // Itago ang dialog
+    document.getElementById('suggestionForm').reset(); // I-reset ang form
+    document.getElementById('profileCard').style.display = 'block';
+}
+
+// AJAX Submission para sa Suggestion Form
+document.getElementById('suggestionForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const dialogContainer = document.getElementById('suggestionDialogContainer');
+    const dialogContent = document.getElementById('suggestionDialogContent');
+
+    // Simple client-side validation for empty text
+    if (formData.get('feedback_text').trim() === '') {
+        dialogContent.textContent = 'Suggestion text cannot be empty.';
+        dialogContainer.querySelector('.dialog-content').style.background = '#ffe5e5';
+        dialogContainer.querySelector('.dialog-content').style.color = '#a00';
+        dialogContainer.style.display = 'block';
+        return;
+    }
+
+    fetch(form.action, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            dialogContent.textContent = data.message;
+            dialogContainer.querySelector('.dialog-content').style.background = '#e6ffec';
+            dialogContainer.querySelector('.dialog-content').style.color = '#3c763d';
+            dialogContainer.style.display = 'block';
+            form.reset();
+            // Hintayin ng konti bago itago ang form at ibalik ang profile card
+            setTimeout(hideSuggestionForm, 2000); 
+        } else {
+            dialogContent.textContent = data.message;
+            dialogContainer.querySelector('.dialog-content').style.background = '#ffe5e5';
+            dialogContainer.querySelector('.dialog-content').style.color = '#a00';
+            dialogContainer.style.display = 'block';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        dialogContent.textContent = 'An unexpected error occurred. Please try again.';
+        dialogContainer.querySelector('.dialog-content').style.background = '#ffe5e5';
+        dialogContainer.querySelector('.dialog-content').style.color = '#a00';
+        dialogContainer.style.display = 'block';
+    });
+});
+
+
+// Map modal logic (existing code, unchanged)
 let mapModal = document.getElementById('mapModal');
 let openMapBtn = document.getElementById('openMapBtn');
 let closeMapBtn = document.getElementById('closeMapBtn');

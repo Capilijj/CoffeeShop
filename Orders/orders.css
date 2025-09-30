@@ -9,35 +9,72 @@
 
 /* Orders Page Styles based on your code */
 .orders-container {
-  max-width: 900px;
-  margin: 40px auto 0 auto;
+  max-width: 1000px;
+  /* Min-height para sa empty state */
+  min-height: 300px; 
+  margin: 0 auto 50px auto; 
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 24px rgba(160,82,45,0.10);
   padding: 32px 28px 24px 28px;
   margin-bottom: 50px;
+  
+  /* Para sa centering ng empty message */
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
 }
+
+/* FIX: New Wrapper for Scrollable Table */
+.orders-table-wrapper {
+    /* Ang maximum height ng table list bago maging scrollable */
+    max-height: 500px; /* Maaari ninyo itong i-adjust */
+    width: 100%;
+    overflow-y: auto; /* Dito magsa-scroll ang content */
+    border: 1px solid #f8f5f1; /* Optional: border para magandang tingnan */
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* Tiyakin na ang table mismo ay 100% ang lapad ng wrapper */
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  /* Inalis ang margin-bottom dahil ang wrapper na ang may margin */
+  margin-bottom: 0; 
+}
+
+
+/* Styling para sa empty orders message */
+.orders-container p {
+    margin-top: 15px; 
+    font-size: 1.1em;
+    color: #5c4033 !important;
+    font-weight: 600;
+}
+
 .orders-title {
   font-size: 2rem;
   font-weight: 700;
   color: #A0522D;
   margin-bottom: 18px;
   text-align: center;
-}
-.orders-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 18px;
+  width: 100%; 
 }
 .orders-table th, .orders-table td {
   padding: 12px 10px;
-  border-bottom: 1px solid #eee;
+  /* Border na lang sa ilalim */
+  border-bottom: 1px solid #eee; 
   text-align: left;
 }
 .orders-table th {
   background: #f8f5f1;
   color: #A0522D;
   font-weight: 700;
+  /* CRITICAL: Gawing sticky ang header para hindi mawala kapag nag-scroll */
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 .orders-table tr:last-child td {
   border-bottom: none;
@@ -107,23 +144,23 @@
 }
 
 body {
+    padding-top: 120px; 
+    padding-bottom: 120px;
     background: linear-gradient(120deg, #c98c61 0%, #ac7756 100%);
     min-height: 100vh;
-    font-family: Arial, sans-serif; /* Added a font for better readability */
+    font-family: Arial, sans-serif; 
 }
 
 /* Responsive Styles */
 @media (max-width: 600px) {
   .orders-container {
-    /* Nagdagdag ng padding para sa margin sa magkabilang gilid */
     padding-left: 16px; 
     padding-right: 16px;
-    /* Inalis ang nakaraang padding, pinaghiwalay para sa mas malinaw na layunin */
     padding-top: 24px;
     padding-bottom: 24px;
   }
   .orders-table th, .orders-table td {
-    padding: 8px 5px; /* In-adjust ang padding para masikip ang espasyo */
+    padding: 8px 5px; 
     font-size: 0.9em;
   }
 }

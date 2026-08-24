@@ -1,7 +1,7 @@
 <?php
 // Database connection parameters
 $host = "localhost";
-$port = 4306;
+$port = 3306;
 $db_name = "sample_users";
 $username = "root";
 $password = "";

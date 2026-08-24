@@ -21,23 +21,43 @@ $stmt->bind_result($name, $email, $contact_no, $address, $profile_img);
 $stmt->fetch();
 $stmt->close();
 
+$profileImagePath = ltrim(str_replace('\\', '/', $profile_img ?? ''), '/');
+$profileImagePath = preg_replace('#^(?:\.\./)+#', '', $profileImagePath);
+$profileImageSrc = '../Image/Logo.png';
+if ($profileImagePath !== '' && is_file(__DIR__ . '/../' . $profileImagePath)) {
+  $profileImageSrc = '../' . $profileImagePath;
+}
+
 // Handle profile update
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $new_name = $_POST['name'] ?? '';
     $new_contact = $_POST['contact_no'] ?? '';
     $new_address = $_POST['address'] ?? '';
-    $img_path = $profile_img;
+  $img_path = (string) ($profile_img ?? '');
     if (isset($_FILES['profile_img']) && $_FILES['profile_img']['error'] === UPLOAD_ERR_OK) {
         $ext = pathinfo($_FILES['profile_img']['name'], PATHINFO_EXTENSION);
-        $img_path = 'uploads/profile_' . $user_id . '.' . $ext;
-        move_uploaded_file($_FILES['profile_img']['tmp_name'], '../' . $img_path);
+        $uploadDirectory = __DIR__ . '/../uploads';
+    $fileName = 'profile_' . $user_id . '_' . time() . '.' . strtolower($ext);
+    $img_path = 'uploads/' . $fileName;
+        if (!is_dir($uploadDirectory)) {
+            mkdir($uploadDirectory, 0755, true);
+        }
+    $destination = $uploadDirectory . '/' . $fileName;
+        if (!move_uploaded_file($_FILES['profile_img']['tmp_name'], $destination)) {
+          $img_path = (string) ($profile_img ?? '');
+        }
     }
     $update = $conn->prepare('UPDATE users SET name=?, contact_no=?, address=?, profile_img=? WHERE id=?');
+    if (!$update) {
+      die('Profile update failed: ' . $conn->error);
+    }
     $update->bind_param('ssssi', $new_name, $new_contact, $new_address, $img_path, $user_id);
-    $update->execute();
+    if (!$update->execute()) {
+      die('Profile update failed: ' . $update->error);
+    }
     $update->close();
     // Update session variable for header profile image
-    $_SESSION['user_profile_img'] = '../' . $img_path;
+    $_SESSION['user_profile_img'] = $img_path ? '../' . $img_path : '';
     header('Location: profile.php?success=1');
     exit();
 }
@@ -60,10 +80,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div id="profileCard" style="text-align:center;">
             <div class="profile-label">User Profile</div>
             <div class="profile-img-wrapper">
-                <img id="profileImgDisplay" src="<?php echo $profile_img ? ('../' . htmlspecialchars($profile_img)) : '../Image/Logo.png'; ?>" alt="Profile" class="profile-img-main">
+                <img id="profileImgDisplay" src="<?php echo htmlspecialchars($profileImageSrc); ?>" alt="Profile" class="profile-img-main">
             </div>
-            <div class="profile-name"><?php echo htmlspecialchars($name); ?></div>
-            <div class="profile-email"><?php echo htmlspecialchars($email); ?></div>
+            <div class="profile-name"><?php echo htmlspecialchars((string) ($name ?? '')); ?></div>
+            <div class="profile-email"><?php echo htmlspecialchars((string) ($email ?? '')); ?></div>
             
             <button id="editProfileBtn" class="login-btn" type="button" style="margin-bottom:18px;">Edit Profile</button>
             
@@ -81,21 +101,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" enctype="multipart/form-data">
                 <div class="input-group">
                     <label for="profile_img">Profile Image</label><br>
-                    <img id="editProfileImgPreview" src="<?php echo $profile_img ? ('../' . htmlspecialchars($profile_img)) : '../Image/Logo.png'; ?>" alt="Profile" style="width:110px;height:110px;border-radius:50%;object-fit:cover;margin-bottom:10px;border:2.5px solid #ffcc99;background:#f8f4ef;">
+                    <img id="editProfileImgPreview" src="<?php echo htmlspecialchars($profileImageSrc); ?>" alt="Profile" style="width:110px;height:110px;border-radius:50%;object-fit:cover;margin-bottom:10px;border:2.5px solid #ffcc99;background:#f8f4ef;">
                     <input type="file" name="profile_img" id="profile_img" accept="image/*" onchange="previewProfileImg(event)">
                 </div>
                 <div class="input-group">
                     <label for="name">Name</label>
-                    <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($name); ?>" required>
+                    <input type="text" name="name" id="name" value="<?php echo htmlspecialchars((string) ($name ?? '')); ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="contact_no">Contact Number</label>
-                    <input type="text" name="contact_no" id="contact_no" value="<?php echo htmlspecialchars($contact_no); ?>" required>
+                    <input type="text" name="contact_no" id="contact_no" value="<?php echo htmlspecialchars((string) ($contact_no ?? '')); ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="address">Address</label>
                     <div style="display:flex;gap:8px;align-items:center;">
-                        <input type="text" name="address" id="address" value="<?php echo htmlspecialchars($address); ?>" required style="flex:1;">
+                        <input type="text" name="address" id="address" value="<?php echo htmlspecialchars((string) ($address ?? '')); ?>" required style="flex:1;">
                         <button type="button" id="openMapBtn" style="padding:6px 14px;background:#6F4E37;color:#fff;border:none;border-radius:6px;cursor:pointer;">Map</button>
                     </div>
                 </div>
